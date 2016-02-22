@@ -1,0 +1,10 @@
+#englisch translations
+mail.admin.definition_validate: 'Validation needed'
+mail.admin.definition_marked_as_spam: 'Someone marked a definition as spam'
+mail.user.definition_accepted: 'Ensie: your article was accepted'
+mail.user.definition_rejected: 'Ensie: your article needs improvement'
+mail.user.added_to_favo: 'Ensie: someone added you as a favourite'
+mail.user.definition_created: 'Ensie: a new article is added'
+everyone: 'Everyone'
+writers: 'Only writers'
+none: 'No-one'

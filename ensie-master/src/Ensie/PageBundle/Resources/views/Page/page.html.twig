@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block metadata %}
+    {% set page = pageSlug %}
+    <title>{{ simpleText('metadata.title' ~ page) }}</title>
+    <meta name="description" content="{{ simpleText('metadata.description' ~ page) }}">
+    <meta name="keywords" content="{{ simpleText('metadata.keywords' ~ page) }}" />
+{% endblock %}
+{% block metadata_edit %}
+    {% set page = pageSlug %}
+    {{ simpleTextSonataAdminLink('metadata.title' ~ page) | raw }}
+    {{ simpleTextSonataAdminLink('metadata.description' ~ page) | raw }}
+    {{ simpleTextSonataAdminLink('metadata.keywords' ~ page) | raw }}
+{% endblock %}
+
+{% block content %}
+    <section class="subnav">
+        <nav>
+            {% for menuSlug in pages  %}
+                <a href="{{ path('page_content', {'pageSlug': menuSlug}) }}" {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == path('page_content', {'pageSlug': menuSlug}) %} class="active"{% endif %}>{{ simpleText('page.' ~ menuSlug ~ '.menu.title') }}</a>{{ simpleTextSonataAdminLink('page.' ~ menuSlug ~ '.menu.title')|raw }}
+            {% endfor %}
+        </nav>
+    </section>
+    <section class="contentpage">
+        <header>
+            <h1>{{ simpleText('page.' ~ pageSlug ~ '.title') }}{{ simpleTextSonataAdminLink('page.' ~ pageSlug ~ '.title')|raw }}</h1>
+        </header>
+        {{ simpleText('page.' ~ pageSlug ~ '.content')|raw }}{{ simpleTextSonataAdminLink('page.' ~ pageSlug ~ '.content', true)|raw }}
+    </section>
+{% endblock %}

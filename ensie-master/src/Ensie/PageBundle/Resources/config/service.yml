@@ -1,0 +1,5 @@
+services:
+    page.menu_item_service:
+        class: Ensie\PageBundle\Service\MenuItemService
+        calls:
+            - [setContainer, ["@service_container"]]

@@ -1,0 +1,10 @@
+{% set currentUser = '' %}
+{% for definition in definitionUpdates %}
+    {% if currentUser != definition.ensieUser %}
+        {% set currentUser = definition.ensieUser %}
+            {{ currentUser.formattedName }} {% if locale == 'nl' %}schreef over{% else %}wrote:{% endif %}:<br>
+                - <a href="{{ definitionPath(definition) }}">{{ definition.word }}</a><br>
+    {%  else %}
+        - <a href="{{ definitionPath(definition) }}">{{ definition.word }}</a><br>
+    {% endif %}
+{% endfor %}

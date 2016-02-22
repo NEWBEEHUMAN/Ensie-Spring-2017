@@ -1,0 +1,69 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ENSIE_USER:  ROLE_ENSIE_USER
+        ROLE_ADMIN:       ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: /?login
+                check_path: /login_check
+                success_handler: ensie_user.login_handler
+            oauth:
+                login_path: /loginr
+                failure_path: /
+                check_path: /connect
+                success_handler: ensie_user.login_handler
+                resource_owners:
+                    linkedin: "/login/check-linkedin"
+                oauth_user_provider:
+                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
+                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
+                    service: my_user_provider
+            anonymous:    true
+            logout:
+                path:           /logout
+                target:         /
+                success_handler: ensie_user.logout_handler
+                invalidate_session: false
+            remember_me:
+                key: "TheSecretRemberKey"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
+                always_remember_me: true
+                remember_me_parameter: _remember_me
+
+        login:
+            pattern: ^/login$
+            security: false
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
+                always_remember_me: true
+                remember_me_parameter: _remember_me
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/profile, role: ROLE_ENSIE_USER }
+        - { path: ^/profiel, role: ROLE_ENSIE_USER }
+        - { path: ^/admin/, role: ROLE_SUPER_ADMIN }

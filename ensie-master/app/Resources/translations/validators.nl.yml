@@ -1,0 +1,17 @@
+ensie.definition.form.field.word.validation.not_blank: 'De titel kan niet leeg zijn'
+ensie.definition.form.field.word.validation.already_exists: 'Dit woord heb je al omschreven'
+ensie.definition.form.field.definition.validation.not_blank: "De definitie kan niet leeg zijn"
+ensie.definition.form.field.description.validation.not_blank: "De betekenis kan niet leeg zijn"
+ensie.definition.form.field.keywords.validation.min_message: "Voeg op z'n minst 3 keywords toe gescheiden door komma's"
+ensie.definition.form.field.esie.validation.not_blank: 'Je dient een Ensie te kiezen of een nieuwe aan te maken'
+ensie.definition.form.field.definition.validation.word_count.min_message: 'Voer minimaal %min% woorden in bij je definitie'
+ensie.definition.form.field.definition.validation.word_count.max_message: 'Een definitie mag niet meer dan %max% woorden bevatten'
+ensie.definition.form.field.description.validation.word_count.min_message: 'Voer minimaal %min% woorden in bij je betekenis'
+ensie.definition.form.field.description.validation.word_count.max_message: 'Een betekenis mag niet meer dan %max% woorden bevatten'
+ensie.user.form.field.googlePlusUrl.validation.no_google_plus_in_url: 'Het lijkt erop dat je geen geldige Google+ url hebt ingevuld'
+ensie.user.form.field.linkedInUrl.validation.no_linkin_in_url: 'Het lijkt erop dat je geen geldige LinkedIn url hebt ingevuld'
+ensie.user.form.field.terms_accepted.validation.not_empty: 'U dient de voorwaarden te accepteren'
+ensie.user.form.field.bio.validation.max_length_exceeded: 'Je bio is te lang, deze mag maximaal 140 tekens zijn.'
+ensie.user.form.field.headline.validation.max_length_exceeded: 'Mag maximaal 50 tekens zijn.'
+ensie.user.form.field.contact.validation.email: 'Je dient een correct e-mailadres op te geven'
+common.notBlank: 'Mag niet leeg zijn'

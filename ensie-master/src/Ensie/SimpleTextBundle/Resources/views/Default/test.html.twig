@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Hello dit is de test pagina voor SimpleTextBundle</h1>
+homepage.title: {{ simpleText('homepage.title') }}
+{{ simpleTextSonataAdminLink('homepage.title')|raw }}
+<br>
+homepage.title NL: {{ simpleText('homepage.title', 'nl') }}<br>
+homepage.title EN: {{ simpleText('homepage.title', 'en') }}<br>
+{{ simpleText('simpletext.title')|raw }} {{ simpleTextSonataAdminLink('simpletext.title')|raw }}<br>
+{{ simpleText('simpletext.titleh2')|raw }} {{ simpleTextSonataAdminLink('simpletext.titleh2')|raw }}<br>
+{{ simpleText('simpletext.titleh3')|raw }} {{ simpleTextSonataAdminLink('simpletext.titleh3')|raw }}<br>
+
+<br><br>
+
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_errors(form) }}
+<ul class="form large">
+    <li>
+        <label for="{{ form.word.vars.id }}">{{ simpleText('profile.definition_word') }}{{ simpleTextSonataAdminLink('profile.definition_word')|raw }}</label>
+        {{ form_errors(form.word) }}
+        {{ form_widget(form.word,  { 'attr': {'placeholder': simpleText('profile.definition_word_placeholder')} }) }}{{ simpleTextSonataAdminLink('profile.definition_word_placeholder')|raw }}
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_word_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_word_tooltip')|raw }}
+    </li>
+    <li>
+        <label for="{{ form.definition.vars.id }}">{{ simpleText('profile.definition_definition') }}{{ simpleTextSonataAdminLink('profile.definition_definition')|raw }}</label>
+        {{ form_errors(form.definition) }}
+        <div class="textarea-wrapper">
+            {{ form_widget(form.definition,  { 'attr': {'placeholder': simpleText('profile.definition_definition_placeholder'), 'rows': 4} }) }}{{ simpleTextSonataAdminLink('profile.definition_definition_placeholder')|raw }}
+        </div>
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_definition_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_definition_tooltip')|raw }}
+    </li>
+    <li>
+        <label for="{{ form.description.vars.id }}">{{ simpleText('profile.definition_description') }}{{ simpleTextSonataAdminLink('profile.definition_description')|raw }}</label>
+        {{ form_errors(form.description) }}
+        <div class="textarea-wrapper">
+            {{ form_widget(form.description,  { 'attr': {'placeholder': simpleText('profile.definition_description_placeholder'), 'rows': 16} }) }}{{ simpleTextSonataAdminLink('profile.definition_description_placeholder')|raw }}
+        </div>
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_description_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_description_tooltip')|raw }}
+    </li>
+    <li>
+        <label for="{{ form.keywords.vars.id }}">{{ simpleText('profile.definition_keywords') }}{{ simpleTextSonataAdminLink('profile.definition_keywords')|raw }}</label>
+        {{ form_errors(form.keywords) }}
+        <ul id="i4" class="tag-list">
+            {% for keyword in form.keywords %}
+                <li>{{ keyword.vars.value.word }}</li>
+            {% endfor %}
+        </ul>
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_keywords_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_keywords_tooltip')|raw }}
+    </li>
+    <li id="add-ensie">
+        <label for="{{ form.ensieSelect.vars.id }}">{{ simpleText('profile.definition_ensie') }}{{ simpleTextSonataAdminLink('profile.definition_ensie')|raw }}</label>
+        {{ form_errors(form.ensieSelect) }}
+        {{ form_errors(form.ensieText) }}
+
+        <div class="select-wrapper">
+            <div class="selectbox">
+                <ul class="options" data-selector="dropdown-select">
+                    {% for ensie in form.ensieSelect.vars.choices %}
+                        <li class="item">
+                            <input value="{{ ensie.label }}" type="hidden">{{ ensie.label }}
+                        </li>
+                    {% endfor %}
+                    <li class="new">
+                        {{ form_widget(form.ensieText,  { 'attr': {'placeholder': simpleText('profile.definition_ensie_new_placeholder')} }) }}{{ simpleTextSonataAdminLink('profile.definition_ensie_new_placeholder')|raw }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_ensie_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_ensie_tooltip')|raw }}
+    </li>
+    {% if app.user.isPayingCompany %}
+    <li>
+        <label for="{{ form.extraLinkText.vars.id }}">{{ simpleText('profile.definition_extra_link_text') }}{{ simpleTextSonataAdminLink('profile.definition_extra_link_text')|raw }}</label>
+        {{ form_errors(form.extraLinkText) }}
+        {{ form_widget(form.extraLinkText,  { 'attr': {'placeholder': simpleText('profile.definition_extra_link_text_placeholder')} }) }}{{ simpleTextSonataAdminLink('profile.definition_extra_link_text_placeholder')|raw }}
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_extra_link_text_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_extra_link_text_tooltip')|raw }}
+    </li>
+    <li>
+        <label for="{{ form.extraLinkUrl.vars.id }}">{{ simpleText('profile.definition_extra_link_url') }}{{ simpleTextSonataAdminLink('profile.definition_extra_link_url')|raw }}</label>
+        {{ form_errors(form.extraLinkUrl) }}
+        {{ form_widget(form.extraLinkUrl,  { 'attr': {'placeholder': simpleText('profile.definition_extra_link_url_placeholder')} }) }}{{ simpleTextSonataAdminLink('profile.definition_extra_link_url_placeholder')|raw }}
+        <span class="tooltip" data-tooltip="{{ simpleText('profile.definition_extra_link_url_tooltip') }}">?</span>{{ simpleTextSonataAdminLink('profile.definition_extra_link_url_tooltip')|raw }}
+    </li>
+    {% endif %}
+    <li>
+        {{ form_widget(form._token)}}
+        {% block submitButton %}
+        <input type="submit" value="{{ simpleText('profile.definition_ensie_action_create') }}">{{ simpleTextSonataAdminLink('profile.definition_ensie_action_create')|raw }}
+        {% endblock %}
+    </li>
+</ul>
+{{ form_end(form, {'render_rest': false}) }}

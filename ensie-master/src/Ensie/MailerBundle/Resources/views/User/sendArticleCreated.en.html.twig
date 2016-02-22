@@ -1,0 +1,21 @@
+{% extends "base_email.en.html.twig" %}
+
+{% block content %}
+    <h2>Hi {{ ensieUserFriend.formattedName }}</h2>
+    <p>
+       One of your favorites added a new article: <a href="{{ definitionPath(definition) }}">{{ definition.word }}</a>.
+    </p>
+    <p>
+        Good luck!<br/>
+        Tom</p>
+    <p><a href="https://www.ensie.com">Go to Ensie</a></p>
+{% endblock %}
+
+
+
+
+
+
+
+
+

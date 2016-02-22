@@ -1,0 +1,9 @@
+services:
+    redirect_controller:
+        class: Ensie\RedirectBundle\Controller\RedirectController
+
+    ensie_redirect.redirect_listener:
+        class: Ensie\RedirectBundle\Event\EventListeners\RedirectListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        arguments: [ @router, @service_container ]

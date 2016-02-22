@@ -1,0 +1,26 @@
+{% extends "base_email.en.html.twig" %}
+
+{% block content %}
+    <h2>Hi {{ definition.ensieUser.formattedName }}</h2>
+    <p>
+        Your first definition has been published on Ensie! Our compliments for the work you delivered. Share your
+        definition on social media by clicking here. Don't forget to expand your Ensie by defining other topics, and
+        reach more visitors. You can start writing <a href="{{ url('profile_definition_write') }}">here</a>.
+    </p>
+    <p>
+        Good luck!<br/>
+        Tom
+    </p>
+    <p><a href="https://www.ensie.com">Go to Ensie</a></p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+
+
+
+
+
+

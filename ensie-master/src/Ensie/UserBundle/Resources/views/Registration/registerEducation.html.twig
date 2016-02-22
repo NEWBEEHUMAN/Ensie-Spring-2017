@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block metadata %}
+    {% set page = 'register-education' %}
+    <title>{{ simpleText('metadata.title' ~ page) }}</title>
+    <meta name="description" content="{{ simpleText('metadata.description' ~ page) }}">
+    <meta name="keywords" content="{{ simpleText('metadata.keywords' ~ page) }}" />
+{% endblock %}
+{% block metadata_edit %}
+    {% set page = 'register-education' %}
+    {{ simpleTextSonataAdminLink('metadata.title' ~ page) | raw }}
+    {{ simpleTextSonataAdminLink('metadata.description' ~ page) | raw }}
+    {{ simpleTextSonataAdminLink('metadata.keywords' ~ page) | raw }}
+{% endblock %}
+
+{% block content %}
+    {% set page = 'register-education' %}
+    <section class="businesspage">
+        <header>
+            <h1>{{ simpleText('page.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.title.' ~ page) | raw}}</h1>
+        </header>
+        <div class="blocks intro">
+            <div class="wrapper">
+                <div class="block full">
+                    <p>
+                        {{ simpleText('page.intro.' ~ page) | raw }}{{ simpleTextSonataAdminLink('page.intro.' ~ page, true) | raw}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="blocks">
+            <div class="wrapper">
+                <div class="block half left advantages">
+                    <h2>{{ simpleText('page.extra.advances.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.advances.title.' ~ page, false) | raw}}</h2>
+                    {{ simpleText('page.extra.advances.content.' ~ page) | raw }}{{ simpleTextSonataAdminLink('page.extra.advances.content.' ~ page, true) | raw}}
+                </div>
+                <div class="block half left testimonials">
+                    <h2>{{ simpleText('page.extra.testimonials.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.testimonials.title.' ~ page, false) | raw}}</h2>
+                    {{ simpleText('page.extra.testimonials.content.' ~ page) | raw }}{{ simpleTextSonataAdminLink('page.extra.testimonials.content.' ~ page, true) | raw}}
+                </div>
+            </div>
+        </div>
+        <div class="blocks pricing">
+            <div class="wrapper">
+                <div class="block">
+                    <h2>{{ simpleText('page.extra.subscription.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.subscription.title.' ~ page) | raw}}</h2>
+                    {{ simpleText('page.extra.subscription.content.' ~ page) | raw }}{{ simpleTextSonataAdminLink('page.extra.subscription.content.' ~ page, true) | raw}}
+                    <div class="pricing-table">
+                        {% for subscription in companySubscriptions|slice(0, 3) %}
+                        <ul data-action="register-company" data-title="{{ subscription.translate().getTitle }}" data-id="{{ subscription.id }}" {% if subscription.isMostSold %}class="featured" data-before="Meest gekozen"{% endif %}>
+                            <li class="title">{{ subscription.translate().getTitle }}</li>
+                            <li class="price"><span data-before="{{ currencySymbol(language) }}" data-after="per jaar">{{ subscription.translate().getPrice }}</span></li>
+                            <li class="subtitle">{{ simpleText('page.extra.subscription.subtitle.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.subscription.subtitle.' ~ page) | raw}}</li>
+                            <li>
+                                {{ subscription.translate().getDescription | raw }}
+                            </li>
+                            <li class="action"><input type="submit" value="Kies het {{ subscription.translate().getTitle }} pakket" class="button" /></li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                    {{ simpleText('page.extra.subscription.after.' ~ page) | raw }}{{ simpleTextSonataAdminLink('page.extra.subscription.after.' ~ page, true) | raw}}
+                </div>
+            </div>
+        </div>
+        <div class="blocks faq">
+            <div class="wrapper">
+                <h2>{{ simpleText('page.extra.faq.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq.title.' ~ page) | raw}}</h2>
+                <div class="block third left">
+                    <h3>{{ simpleText('page.extra.faq1.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq1.title.' ~ page) | raw}}</h3>
+                    {{ simpleText('page.extra.faq1.content.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq1.content.' ~ page) | raw}}
+                </div>
+                <div class="block third left">
+                    <h3>{{ simpleText('page.extra.faq2.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq2.title.' ~ page) | raw}}</h3>
+                    {{ simpleText('page.extra.faq2.content.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq2.content.' ~ page) | raw}}
+                </div>
+                <div class="block third left">
+                    <h3>{{ simpleText('page.extra.faq3.title.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq3.title.' ~ page) | raw}}</h3>
+                    {{ simpleText('page.extra.faq3.content.' ~ page) }}{{ simpleTextSonataAdminLink('page.extra.faq3.content.' ~ page) | raw}}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

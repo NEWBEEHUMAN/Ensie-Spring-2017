@@ -1,0 +1,74 @@
+services:
+    ensie.notification_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\NotificationBundle\Entity\Notification
+    ensie.notification_template_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\NotificationBundle\Entity\NotificationTemplate
+    ensie.notification_service:
+        class: Ensie\NotificationBundle\Notification\NotificationService
+        arguments:
+            - @ensie.notification_repository
+            - @ensie.notification_template_repository
+            - @service_container
+
+    #twig
+    twig.stringloader:
+        class: Twig_Loader_String
+        tags:
+            - { name: twig.loader }
+
+    ensie.notification_has_notifications:
+        class: Ensie\NotificationBundle\Service\Twig\HasNotifications
+        arguments:
+          - @ensie.notification_service
+        tags:
+            - { name: twig.extension }
+
+    #listeners
+    ensie.notification_friend_added_listener:
+        class: Ensie\NotificationBundle\Event\EventListeners\FriendAddedNotificationListener
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @ensie.notification_service
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie.notification_definition_accepted_listener:
+        class: Ensie\NotificationBundle\Event\EventListeners\DefinitionAcceptedNotificationListener
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @ensie.notification_service
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie.notification_definition_rejected_listener:
+        class: Ensie\NotificationBundle\Event\EventListeners\DefinitionRejectedNotificationListener
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @ensie.notification_service
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie.notification_definition_rated_listener:
+        class: Ensie\NotificationBundle\Event\EventListeners\DefinitionRatedNotificationListener
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @ensie.notification_service
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie.notification_definition_created_listener:
+        class: Ensie\NotificationBundle\Event\EventListeners\DefinitionCreatedNotificationListener
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @ensie.notification_service
+            - @ensie.user_friend_repository
+        tags:
+            - { name: kernel.event_subscriber }

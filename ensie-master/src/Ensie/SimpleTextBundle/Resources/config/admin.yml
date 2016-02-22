@@ -1,0 +1,14 @@
+services:
+    sonata.admin.simpletext_simpletext:
+        class: Ensie\SimpleTextBundle\Admin\SimpleTextAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Content"
+              label: "Simple text"
+        arguments:
+            - ~
+            - Ensie\SimpleTextBundle\Entity\SimpleText
+            - ~
+        calls:
+            - [ setTranslationDomain, [EnsieSimpleTextBundle]]

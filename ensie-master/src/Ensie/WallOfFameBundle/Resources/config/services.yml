@@ -1,0 +1,11 @@
+services:
+  wall_of_fame.queries_service:
+      class: Ensie\WallOfFameBundle\Service\WallOfFameService
+      arguments:
+          - "@doctrine.orm.entity_manager"
+  wall_of_fame.twig.extension:
+      class: Ensie\WallOfFameBundle\Service\Twig\WallOfFameTwigExtension
+      arguments:
+          - "@wall_of_fame.queries_service"
+      tags:
+          - { name: twig.extension }

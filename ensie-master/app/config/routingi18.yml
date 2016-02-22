@@ -1,0 +1,169 @@
+home_language:
+    locales:  { en: "/{_locale}/", nl: "/{_locale}/"}
+    defaults: { _controller: EnsieEnsieBundle:Definition:home }
+    requirements:
+        _locale:  en|nl
+
+definition_autocomplete_search:
+    locales:  { en: "/search/", nl: "/zoeken/"}
+    defaults: { _controller: EnsieEnsieBundle:Definition:autoCompleteSearch }
+    methods:  [GET]
+
+definition_search:
+    locales:  { en: "/meaning/", nl: "/betekenis/"}
+    defaults: { _controller: EnsieEnsieBundle:Definition:search }
+    methods:  [GET]
+
+definition_search_word:
+    locales:  { en: "/meaning/{slug}", nl: "/betekenis/{slug}"}
+    defaults: { _controller: EnsieEnsieBundle:Definition:search }
+    methods:  [GET]
+
+word_not_found:
+    locales:  { en: "/unknown/{searchWord}", nl: "/onbekend/{searchWord}"}
+    defaults: { _controller: EnsieEnsieBundle:Definition:wordNotFound }
+    methods:  [GET]
+
+# company register
+register_company:
+    locales:  { en: "/company/register", nl: "/bedrijven/registreren"}
+    defaults: { _controller: EnsieUserBundle:Registration:registerCompany }
+    methods:  [GET]
+
+register_education:
+    locales:  { en: "/educational/register", nl: "/onderwijsinstellingen/registreren"}
+    defaults: { _controller: EnsieUserBundle:Registration:registerEducation }
+    methods:  [GET]
+
+#PROFILE
+
+#profile_change_password:
+#    locales:  { en: "/profile/change-password", nl: "/profiel/wachtwoord-wijzigen"}
+#    defaults: { _controller: EnsieUserBundle:Profile:changePassword }
+#    methods:  [GET]
+
+profile_dashboard:
+    locales:  { en: "/profile/", nl: "/profiel/"}
+    defaults: { _controller: EnsieUserBundle:Profile:dashboard }
+    methods:  [GET]
+
+profile_definition_write:
+    locales:  { en: "/profile/write", nl: "/profiel/schrijven"}
+    defaults: { _controller: EnsieUserBundle:Profile:definitionWrite }
+
+profile_definition_edit:
+    locales:  { en: "/profile/edit/{slug}", nl: "/profiel/bewerken/{slug}"}
+    defaults: { _controller: EnsieUserBundle:Profile:definitionEdit }
+
+profile_definition_delete:
+    locales:  { en: "/profile/delete/{slug}", nl: "/profiel/definitie/{slug}"}
+    defaults: { _controller: EnsieUserBundle:Profile:definitionDelete }
+
+profile_ensie_add:
+    locales:  { en: "/profile/ensie/add", nl: "/profiel/ensie/toevoegen"}
+    defaults: { _controller: EnsieUserBundle:Profile:ensieAdd }
+
+profile_ensie_edit:
+    locales:  { en: "/profile/ensie/edit/{id}", nl: "/profiel/ensie/bewerken/{id}"}
+    defaults: { _controller: EnsieUserBundle:Profile:ensieEdit }
+
+profile_ensie_delete:
+    locales:  { en: "/profile/ensie/delete/{id}", nl: "/profiel/ensie/verwijderen/{id}"}
+    defaults: { _controller: EnsieUserBundle:Profile:ensieDelete }
+
+profile_definitions:
+    locales:  { en: "/profile/definitions/", nl: "/profiel/artikelen/"}
+    defaults: { _controller: EnsieUserBundle:Profile:definitions }
+
+profile_notifications_view:
+    locales:  { en: "/profile/notifications/", nl: "/profiel/notificaties/"}
+    defaults: { _controller: EnsieUserBundle:Profile:notificationsView }
+    methods:  [GET]
+
+profile_set_notifications_to_viewed:
+    locales:  { en: "/profile/notifications/viewed", nl: "/profiel/notificaties/getoond"}
+    defaults: { _controller: EnsieUserBundle:Profile:setNotificationToViewed }
+    methods:  [GET]
+
+profile_profile_edit:
+    locales:  { en: "/profile/edit", nl: "/profiel/bewerken"}
+    defaults: { _controller: EnsieUserBundle:Profile:profile }
+
+admin_validate_definition:
+    locales:  { en: "/admin/validate/definition/{id}", nl: "/admin/valideer/definitie/{id}"}
+    defaults: { _controller: EnsieAdminBundle:Admin:validateDefinition }
+
+admin_validate_definition_send:
+    locales:  { en: "/admin/validate/definition/send/{id}", nl: "/admin/valideer/definitie/verzonden/{id}"}
+    defaults: { _controller: EnsieAdminBundle:Admin:validateDefinitionSend }
+
+#FRIENDS
+user_add_friend:
+    locales:  { en: "/favo/add/{friendSlug}", nl: "/favo/toevoegen/{friendSlug}"}
+    defaults: { _controller: EnsieUserBundle:User:addFriend }
+    methods:  [GET]
+
+user_remove_friend:
+    locales:  { en: "/favo/remove/{friendSlug}", nl: "/favo/verwijderen/{friendSlug}"}
+    defaults: { _controller: EnsieUserBundle:User:removeFriend }
+    methods:  [GET]
+
+definition_autocomplete_search:
+    locales:  { en: "/search/", nl: "/zoeken/"}
+    defaults: { _controller: EnsieEnsieBundle:Definition:autoCompleteSearch }
+    methods:  [GET]
+
+page_companie_redirect:
+     path:  "/page/companies"
+     defaults:
+          _controller: FrameworkBundle:Redirect:urlRedirect
+          path: /company/register
+          permantent: true
+
+page_bedrijven_redirect:
+     path:  "/pagina/bedrijven"
+     defaults:
+          _controller: FrameworkBundle:Redirect:urlRedirect
+          path: /bedrijven/registreren
+          permantent: true
+
+page_content:
+    locales:  { en: "/page/{pageSlug}", nl: "/pagina/{pageSlug}"}
+    defaults: { _controller: EnsiePageBundle:Page:page }
+    methods:  [GET]
+
+page_category_content:
+    locales:  { en: "/category/{pageSlug}", nl: "/categorie/{pageSlug}"}
+    defaults: { _controller: EnsiePageBundle:Page:category }
+    methods:  [GET]
+
+user_contact_writer_definition:
+    locales:  { en: "/{userSlug}/{definitionSlug}/contact", nl: "/{userSlug}/{definitionSlug}/contact"}
+    defaults: { _controller: EnsieUserBundle:User:contactWriter }
+
+user_contact_writer_user_details:
+    locales:  { en: "/{userSlug}/contact", nl: "/{userSlug}/bericht"}
+    defaults: { _controller: EnsieUserBundle:User:contactWriter }
+
+#Put these on at the bottom of this file!!!
+definition_definition:
+    path:     /{userSlug}/{definitionSlug}
+    defaults: { _controller: EnsieEnsieBundle:Definition:definition }
+
+definition_definition_rating:
+    path:     /{userSlug}/{definitionSlug}/{ratingValue}
+    defaults: { _controller: EnsieEnsieBundle:Definition:addRating }
+    requirements:
+        ratingValue:  \d+
+
+definition_definition_report_spam:
+    path:     /{userSlug}/{definitionSlug}/spam
+    defaults: { _controller: EnsieEnsieBundle:Definition:reportSpam }
+    methods:  [POST]
+
+user_detail:
+    path:     /{userSlug}
+    defaults: { _controller: EnsieUserBundle:User:detailUser }
+#    locales:  { en: "/{profileSlug}", nl: "/{profileSlug}"}
+#    defaults: { _controller: EnsieUserBundle:User:detailUser }
+#    methods:  [GET]

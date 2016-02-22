@@ -1,0 +1,22 @@
+{% extends "base_email.nl.html.twig" %}
+
+{% block content %}
+    <h2>Beste {{ definition.ensieUser.formattedName }}</h2>
+    <p>
+        Je eerste definitie is nu te vinden op Ensie! Complimenten voor het werk dat je hebt geleverd. Deel je nieuwe
+        definitie hier direct via social media. Breid je eigen Ensie vooral uit door nieuwe onderwerpen te definiëren en
+        bereik zo een grotere groep bezoekers. Dat kan door <a href="{{ url('profile_definition_write') }}">hier</a> te klikken. Succes!</p>
+    <p>
+        Good luck!<br/>
+        Tom
+    </p>
+    <p><a href="https://www.ensie.nl">Ga naar Ensie</a></p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+
+
+

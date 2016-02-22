@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <section class="subnav">
+        <nav>
+            <a href="{{ path('category', {'slug': subcategory.category.slug }) }}">{{ subcategory.category.title }}</a>
+            <a href="#">></a>
+            <a href="{{ path('subcategory', {'slug': subcategory.slug, 'category': subcategory.category.slug }) }}" class="active">{{ subcategory.title }}</a>
+        </nav>
+    </section>
+<section class="categorydetailpage">
+    <header class="categorydetail-header" style="background-image: url({{ vich_uploader_asset(subcategory, 'subcategory_header') }})">
+        <div class="category-info">
+            <div class="category-icon" style="background-color: #000;">
+                <img src="{{ vich_uploader_asset(subcategory, 'subcategory_logo') }}" alt="">
+            </div>
+            <h1>{{ subcategory.title }}</h1>
+            <h2>{{ subcategory.subtitle }}</h2>
+            {#
+            <ul class="category-authors">
+                <li><img src="img/user.jpg" alt=""></li>
+                <li><img src="img/user.jpg" alt=""></li>
+                <li><img src="img/user.jpg" alt=""></li>
+                <li><img src="img/user.jpg" alt=""></li>
+                <li><img src="img/user.jpg" alt=""></li>
+                <li><img src="img/user.jpg" alt=""></li>
+                <li class="showmore"><a href="#" data-show="more-faces">&plus;</a></li>
+                <li class="morefaces">
+                    <ul>
+                        <li><img src="img/user.jpg" alt=""></li>
+                        <li><img src="img/user.jpg" alt=""></li>
+                        <li><img src="img/user.jpg" alt=""></li>
+                    </ul>
+                </li>
+            </ul>
+            #}
+        </div>
+    </header>
+    <a href="#" class="button cta" data-action="login">Begin meteen met schrijven</a>
+</section>
+
+<section class="subcategorydetailpage">
+    <div class="wrapper">
+        <div class="work-list">
+            <div class="list">
+                <h2>{{ subcategory.title }}</h2>
+
+                <ul>
+                    {% for definition in subcategory.definitions %}
+                        <li><a href="{{ path('definition_definition', {'definitionSlug': definition.slug, 'userSlug': definition.ensieUser.slug}) }}">{{ definition.word }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

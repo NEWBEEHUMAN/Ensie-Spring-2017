@@ -1,0 +1,53 @@
+Ensie\EnsieBundle\Entity\Definition:
+    constraints:
+#        - Ensie\EnsieBundle\Validator\Constraint\UniqueDefinition:
+#            message: 'ensie.definition.form.field.word.validation.already_exists'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [word, ensieUser, language]
+            errorPath: word
+            message: 'ensie.definition.form.field.word.validation.already_exists'
+    properties:
+        ensieUser:
+        language:
+        ensie:
+            - NotBlank:
+                message: 'ensie.definition.form.field.esie.validation.not_blank'
+        word:
+            - NotBlank:
+                message: 'ensie.definition.form.field.word.validation.not_blank'
+        definition:
+            - NotBlank:
+                message: 'ensie.definition.form.field.definition.validation.not_blank'
+            - Ensie\EnsieBundle\Validator\Constraint\WordCount:
+                min: 10
+                max: 50
+                minMessage: 'ensie.definition.form.field.definition.validation.word_count.min_message'
+                maxMessage: 'ensie.definition.form.field.definition.validation.word_count.max_message'
+        description:
+            - NotBlank:
+                message: 'ensie.definition.form.field.description.validation.not_blank'
+            - Ensie\EnsieBundle\Validator\Constraint\WordCount:
+                min: 50
+                max: 280
+                minMessage: 'ensie.definition.form.field.description.validation.word_count.min_message'
+                maxMessage: 'ensie.definition.form.field.description.validation.word_count.max_message'
+        keywords:
+            - Count:
+                min: 0
+                minMessage: "ensie.definition.form.field.keywords.validation.min_message"
+        extraLinkUrl:
+            - Ensie\UserBundle\Validator\Constraints\EmptyOrRegex:
+                pattern: "#((https?|ftp)://(\S*?\.\S*?))([\s)\[\]{},;\"\':<]|\.\s|$)#i"
+                message: "ensie.definition.form.field.extra_link_url.validation.message"
+
+Ensie\EnsieBundle\Entity\Keyword:
+    properties:
+        word:
+            - NotBlank:
+                message: 'ensie.keyword.form.field.word.validation.not_blank'
+
+Ensie\EnsieBundle\Entity\Ensie:
+    properties:
+        title:
+            - NotBlank:
+                message: 'ensie.ensie.form.field.title.validation.not_blank'

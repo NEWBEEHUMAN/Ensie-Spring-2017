@@ -1,0 +1,21 @@
+{% extends "base_email.en.html.twig" %}
+
+{% block content %}
+    <h2>Hi admin</h2>
+    <p>
+      Someone added a new article: <a href="{{ definitionPath(definition) }}">{{ definition.word }}</a>.
+    </p>
+    <p>
+        Good luck!<br/>
+        Ensie System</p>
+    <p><a href="https://www.ensie.com">Go to Ensie</a></p>
+{% endblock %}
+
+
+
+
+
+
+
+
+

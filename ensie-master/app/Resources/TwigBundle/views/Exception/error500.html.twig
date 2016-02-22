@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <article class="empty">
+        <div class="wrapper">
+            <section class="content">
+                <header>
+                    <h1>
+                        {{ simpleText('error500.title') }}{{ simpleTextSonataAdminLink('error500.title') | raw }}
+                    </h1>
+                </header>
+                <div class="text">
+                    {{ simpleText('error500.content')|raw }}{{ simpleTextSonataAdminLink('error500.content', true) | raw }}
+                </div>
+            </section>
+        </div>
+    </article>
+{% endblock %}

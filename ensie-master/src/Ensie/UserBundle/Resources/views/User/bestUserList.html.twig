@@ -1,0 +1,5 @@
+<ul>
+    {% for ensieUser in list %}
+        <li><a href="{{ ensieUserPath(ensieUser) }}"><img src="{{ getProfileImage(ensieUser, 'micro') }}">{{ ensieUser.formattedname }}</a></li>
+    {% endfor %}
+</ul>

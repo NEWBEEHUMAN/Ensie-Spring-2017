@@ -1,0 +1,63 @@
+{% if form is defined %}
+    {% form_theme form 'form_errors.html.twig' %}
+{% endif %}
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <ul class="form">
+        <li>
+            {{ simpleText('form.register.selected_subscription') }}{{ simpleTextSonataAdminLink('form.register.selected_subscription') | raw }}
+            <span id="selected_subscription_title">{{ form.vars.value.subscription }}</span>
+            <div style="display: none;">
+            <label for="{{ form.subscription.vars.id }}">{{ simpleText('form.register.companyName.label') }}{{ simpleTextSonataAdminLink('form.register.companyName.label')|raw }}</label>
+            {{ form_errors(form.subscription) }}
+            {{ form_widget(form.subscription) }}
+            </div>
+        </li>
+        <li>
+            <label for="{{ form.companyName.vars.id }}">{{ simpleText('form.register.companyName.label') }}{{ simpleTextSonataAdminLink('form.register.companyName.label')|raw }}</label>
+            {{ form_errors(form.companyName) }}
+            {{ form_widget(form.companyName,  { 'attr': {'placeholder': simpleText('form.register.companyName.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.companyName.placeholder')|raw }}
+        </li>
+        <li>
+            <label for="{{ form.firstName.vars.id }}">{{ simpleText('form.register.firstName.label') }}{{ simpleTextSonataAdminLink('form.register.firstName.label')|raw }}</label>
+            {{ form_errors(form.firstName) }}
+            {{ form_widget(form.firstName,  { 'attr': {'placeholder': simpleText('form.register.firstName.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.firstName.placeholder')|raw }}
+        </li>
+        <li>
+            <label for="{{ form.lastName.vars.id }}">{{ simpleText('form.register.lastName.label') }}{{ simpleTextSonataAdminLink('form.register.lastName.label')|raw }}</label>
+            {{ form_errors(form.lastName) }}
+            {{ form_widget(form.lastName,  { 'attr': {'placeholder': simpleText('form.register.lastName.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.lastName.placeholder')|raw }}
+        </li>
+        <li>
+            <label for="{{ form.email.vars.id }}">{{ simpleText('form.register.email.label') }}{{ simpleTextSonataAdminLink('form.register.email.label')|raw }}</label>
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email,  { 'attr': {'placeholder': simpleText('form.register.email.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.email.placeholder')|raw }}
+        </li>
+        <li>
+            <label for="{{ form.plainPassword.first.vars.id }}">{{ simpleText('form.register.plainPassword.first.label') }}{{ simpleTextSonataAdminLink('form.register.plainPassword.first.label')|raw }}</label>
+            {{ form_errors(form.plainPassword.first) }}
+            {{ form_widget(form.plainPassword.first,  { 'attr': {'placeholder': simpleText('form.register.plainPassword.first.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.plainPassword.first.placeholder')|raw }}
+        </li>
+        <li>
+            <label for="{{ form.plainPassword.second.vars.id }}">{{ simpleText('form.register.plainPassword.second.label') }}{{ simpleTextSonataAdminLink('form.register.plainPassword.second.label')|raw }}</label>
+            {{ form_errors(form.plainPassword.second) }}
+            {{ form_widget(form.plainPassword.second,  { 'attr': {'placeholder': simpleText('form.register.plainPassword.second.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.plainPassword.second.placeholder')|raw }}
+        </li>
+        <li>
+            {{ form_errors(form.termsAccepted) }}
+            {{ form_widget(form.termsAccepted) }}
+            <label for="{{ form.termsAccepted.vars.id }}">{{ simpleText('form.register.terms_accepted.label') }}{{ simpleTextSonataAdminLink('form.register.terms_accepted.label')|raw }}</label>
+            {{ simpleText('form.register.terms_accepted.description') | raw }}{{ simpleTextSonataAdminLink('form.register.terms_accepted.description')|raw }}
+            {{ form_widget(form._token) }}
+            {{ form_widget(form.isCompany) }}
+            {{ form_widget(form.locale) }}
+        </li>
+        <li class="buttonwrapper">
+            <input type="button" id="submitRegisterForm" value="{{ simpleText('form.register.company_submit') | raw }}" />{{ simpleTextSonataAdminLink('form.register.company_submit')|raw }}
+            <div class="spinner"></div>
+        </li>
+        <li class="center">
+            <a href="#" data-action="login">{{ simpleText('overlay.register_already_account') }}</a>{{ simpleTextSonataAdminLink('overlay.register_already_account') | raw }}
+            <div class="spinner"></div>
+        </li>
+    </ul>
+</form>

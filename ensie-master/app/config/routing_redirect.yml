@@ -1,0 +1,20 @@
+redirect_over-ensie:
+    path: /over-ensie.php
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /pagina/over
+        permanent: true
+
+redirect_contact:
+    path: /contact.php
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /pagina/contact
+        permanent: true
+
+redirect_disclaimer:
+    path: /disclaimer.php
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /pagina/disclaimer
+        permanent: true

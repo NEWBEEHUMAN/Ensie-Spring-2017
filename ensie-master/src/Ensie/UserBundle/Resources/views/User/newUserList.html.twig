@@ -1,0 +1,5 @@
+<ul>
+    {% for ensieUser in list %}
+        <li><a href="{{ ensieUserPath(ensieUser) }}"><img src="{{ getProfileImage(ensieUser, 'small') }}">{% if ensieUser.isCompany %}{{ ensieUser.companyName }}{% else %}{{ ensieUser.formattedName }}{% endif %}</a></li>
+    {% endfor %}
+</ul>

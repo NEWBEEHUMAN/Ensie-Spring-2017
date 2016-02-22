@@ -1,0 +1,78 @@
+{% extends "EnsieUserBundle:Profile:base_profile.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {{ parent() }}
+
+    <section class="admin">
+        <div class="wrapper">
+            <header>
+                <h1>{{ simpleText('profile.definition_write_title') }}{{ simpleTextSonataAdminLink('profile.definition_write_title')|raw }}</h1>
+            </header>
+            <div class="content">
+                {% if ensieUser.firstWrite %}
+                    {{ simpleText('profile.definition_write_first_write')|raw }}{{ simpleTextSonataAdminLink('profile.definition_write_first_write', true)|raw }}
+                {% endif %}
+                {% if keywords|length > 0 %}
+                <div class="infobox">
+                    {% spaceless %}
+                    <p>{{ simpleText('profile.definition_keyword_no_inspiration') }}{{ simpleTextSonataAdminLink('profile.definition_keyword_no_inspiration')|raw }}
+                        {% if keywords|length == 1 %}
+                        <a href="{{ path('profile_definition_write', {'word': keywords[0].word}) }}">{{ keywords[0].word }}</a>.
+                        {% endif %}
+                        {% if keywords|length == 2 %}
+                        <a href="{{ path('profile_definition_write', {'word': keywords[0].word}) }}">{{ keywords[0].word }}</a> {{ simpleText('or_conjuction') }}{{ simpleTextSonataAdminLink('or_conjuction')|raw }} <a href="{{ path('profile_definition_write', {'word': keywords[1].word}) }}">{{ keywords[1].word }}</a>.
+                        {% endif %}
+                        {% if keywords|length > 2 %}
+                        <a href="{{ path('profile_definition_write', {'word': keywords[0].word}) }}">{{ keywords[0].word }}</a>, <a href="{{ path('profile_definition_write', {'word': keywords[1].word}) }}">{{ keywords[1].word }}</a>
+                        {{ simpleText('or_conjuction') }}
+                        {{ simpleTextSonataAdminLink('or_conjuction')|raw }} <a href="{{ path('profile_definition_write', {'word': keywords[2].word}) }}">{{ keywords[2].word }}</a>.
+                        {% endif %}</p>
+                    {% endspaceless %}
+                </div>
+                {% endif %}
+                {% if app.user.isPayingCompany %}
+                    <div class="paying_company">
+                        {{ simpleText('profile.definition_paying_company_description')|raw }}{{ simpleTextSonataAdminLink('profile.definition_paying_company_description', true)|raw }}
+                        {{ simpleText('profile.definition_paying_company_amount_to_write') }}{{ simpleTextSonataAdminLink('profile.definition_paying_company_amount_to_write', false)|raw }}: <strong>{% if app.user.amountOfWordsToWrite <= 0 %}0{% else %}{{ app.user.amountOfWordsToWrite }}{% endif %}</strong>
+                    </div>
+                {% endif %}
+                {% if app.user.isPayingCompany and app.user.amountOfWordsToWrite <= 0 %}
+                    {{ simpleText('profile.definition_paying_company_no_more_words')|raw }}{{ simpleTextSonataAdminLink('profile.definition_paying_company_no_more_words', true)|raw }}
+                {% else %}
+                {% include 'EnsieUserBundle:Profile:definitionForm.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block childJavascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@EnsieAssetBundle/Resources/public/js/tag-it.js'
+    '@EnsieAssetBundle/Resources/public/js/wordcounter.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $("#definition_definition").textareaCounter({ limit: 50 });
+        $("#definition_description").textareaCounter({ limit: 250 });
+
+        $(document).ready(function() {
+            $("#i4").tagit(
+                {fieldName: "definition[keywords][][word]"}
+            );
+            $('.selectbox .options .item').click(selectEnsie);
+
+        });
+
+        var selectEnsie = function(){
+            $("[name='{{ form.ensieText.vars.full_name }}']").val($(this).find('input').val());
+        }
+
+    </script>
+{% endblock %}
+
+

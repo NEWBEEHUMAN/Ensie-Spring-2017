@@ -1,0 +1,5 @@
+<ul>
+    {% for popularDefinition in definitionList %}
+    <li><a href="{{ definitionPath(popularDefinition.definition) }}"><img src="{{ getProfileImage(popularDefinition.definition.ensieUser, 'small') }}" alt="{{ popularDefinition.definition.ensieUser.formattedName }}">{{ popularDefinition.definition.word }}</a></li>
+    {% endfor %}
+</ul>

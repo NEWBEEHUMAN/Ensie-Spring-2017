@@ -1,0 +1,80 @@
+services:
+    mandrill_mailer.data_getter.user:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\UserDataGetter
+
+    mandrill_mailer.data_getter.company_user:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\CompanyUserDataGetter
+
+    mandrill_mailer.data_getter.stats:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\StatsDataGetter
+        arguments:
+          - @ensie.stats.email_stats_service
+
+    mandrill_mailer.data_getter.notification:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\NotificatieDataGetter
+        arguments:
+          - @ensie.stats.email_notification_service
+          - @twig
+
+    mandrill_mailer.data_getter.definition_accepted:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\DefinitionAcceptedDataGetter
+
+    mandrill_mailer.data_getter.definition_rejected:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\DefinitionRejectedDataGetter
+
+    mandrill_mailer.data_getter.contact_writer:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\DataGetter\ContactWriterDataGetter
+
+    mandrill_mailer.template_configuration:
+        class: Ensie\MandrillMailerBundle\Mandrill\Template\TemplateConfiguration
+        arguments:
+          - %mandrill_mailer.templates%
+
+    mandrill_mailer.mandrill_mailer_service:
+        class: Ensie\MandrillMailerBundle\Service\MandrillMailerService
+        arguments:
+          - @hip_mandrill.dispatcher
+          - %mandrill_mailer.delivery_address%
+
+    mandrill_mailer.mandrill_mail_sender:
+        class: Ensie\MandrillMailerBundle\Service\MandrillMailSender
+        arguments:
+          - @service_container
+          - @mandrill_mailer.template_configuration
+          - @mandrill_mailer.mandrill_mailer_service
+
+    #listerner
+    ensie_definition.definition_accepted_listener:
+        class: Ensie\MandrillMailerBundle\Event\EventListeners\DefinitionAcceptedMailListener
+        arguments:
+            - @mandrill_mailer.mandrill_mail_sender
+            - @router
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie_definition.definition_rejected_listener:
+        class: Ensie\MandrillMailerBundle\Event\EventListeners\DefinitionRejectedMailListener
+        arguments:
+            - @mandrill_mailer.mandrill_mail_sender
+            - @router
+        tags:
+            - { name: kernel.event_subscriber }
+
+    mandrill_mailer.send_welcome_mail_listener:
+        class:  Ensie\MandrillMailerBundle\Event\EventListeners\SendWelcomeMailListener
+        arguments:
+            - @mandrill_mailer.mandrill_mail_sender
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #we overwrite the fos user EmailConfirmationListener
+    fos_user.listener.email_confirmation:
+        class:  Ensie\MandrillMailerBundle\Event\EventListeners\EmailConfirmationListener
+        arguments:
+            - %mandrill_mailer.sales_address%
+            - @mandrill_mailer.mandrill_mail_sender
+            - @fos_user.util.token_generator
+            - @router
+            - @session
+        tags:
+            - { name: kernel.event_subscriber }

@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block metadata %}
+    {% set page = pageSlug %}
+    <title>{{ simpleText('metadata.title' ~ page) }}</title>
+    <meta name="description" content="{{ simpleText('metadata.description' ~ page) }}">
+    <meta name="keywords" content="{{ simpleText('metadata.keywords' ~ page) }}" />
+{% endblock %}
+{% block metadata_edit %}
+    {% set page = pageSlug %}
+    {{ simpleTextSonataAdminLink('metadata.title' ~ page) | raw }}
+    {{ simpleTextSonataAdminLink('metadata.description' ~ page) | raw }}
+    {{ simpleTextSonataAdminLink('metadata.keywords' ~ page) | raw }}
+{% endblock %}
+
+{% block content %}
+
+         
+		
+ 
+        {{ simpleText('page.category.' ~ pageSlug ~ '.content')|raw }}{{ simpleTextSonataAdminLink('page.category.' ~ pageSlug ~ '.content', true)|raw }}
+				
+        
+
+	
+{% endblock %}

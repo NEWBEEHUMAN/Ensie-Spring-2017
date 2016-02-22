@@ -1,0 +1,25 @@
+<p>{{ simpleText('overlay.reset_description') }}{{ simpleTextSonataAdminLink('overlay.reset_description') | raw }}</p>
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+    <ul class="form">
+        {% if invalid_username is defined %}
+            <li>
+                {{ simpleText('overlay.resetting.request.invalid_username') }}{{ simpleTextSonataAdminLink('overlay.resetting.request.invalid_username') | raw }}
+            </li>
+        {% endif %}
+        <li>
+            <label for="{{ form.plainPassword.first.vars.id }}">{{ simpleText('form.register.plainPassword.first.label') }}{{ simpleTextSonataAdminLink('form.register.plainPassword.first.label')|raw }}</label>
+            {{ form_errors(form.plainPassword.first) }}
+            {{ form_widget(form.plainPassword.first,  { 'attr': {'placeholder': simpleText('form.register.plainPassword.first.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.plainPassword.first.placeholder')|raw }}
+        </li>
+        <li>
+            <label for="{{ form.plainPassword.second.vars.id }}">{{ simpleText('form.register.plainPassword.second.label') }}{{ simpleTextSonataAdminLink('form.register.plainPassword.second.label')|raw }}</label>
+            {{ form_errors(form.plainPassword.second) }}
+            {{ form_widget(form.plainPassword.second,  { 'attr': {'placeholder': simpleText('form.register.plainPassword.second.placeholder')} }) }}{{ simpleTextSonataAdminLink('form.register.plainPassword.second.placeholder')|raw }}
+            {{ form_widget(form._token) }}
+        </li>
+        <li class="buttonwrapper">
+            <input type="submit" id="submitResetForm" value="{{ simpleText('overlay.resetting.reset.submit') }}" />{{ simpleTextSonataAdminLink('overlay.resetting.reset.submit') | raw }}
+        </li>
+    </ul>
+</form>
+

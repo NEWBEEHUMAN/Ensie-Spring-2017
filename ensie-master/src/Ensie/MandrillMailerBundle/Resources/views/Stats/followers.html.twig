@@ -1,0 +1,8 @@
+<tr>
+    <!-- Afbeeldingen (optioneel) in het grijze blok -->
+    <td align="center" height="60" width="480">
+        {% for friend in followers %}
+            <a href="{{ url('user_detail', {'userSlug': friend.ensieUser.slug}) }}"><img src="{{ getProfileImage(friend.ensieUser, 'mini') }}" alt="{{ friend.ensieUser.formattedName }}" title="{{ friend.ensieUser.formattedName }}" border="0" width="60" height="60"></a>
+        {% endfor %}
+    </td>
+</tr>

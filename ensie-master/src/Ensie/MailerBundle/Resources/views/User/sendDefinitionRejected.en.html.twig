@@ -1,0 +1,26 @@
+{% extends "base_email.en.html.twig" %}
+
+{% block content %}
+    <h2>Hi {{ definition.ensieUser.formattedName }}</h2>
+    <p>
+        Your first definition needs improvement to meet our guidelines. Take a look at our feedback by clicking
+        <a href="{{ url('profile_notifications_view') }}">here</a>. Your first definition could still be published
+        today!
+    </p>
+    <p>
+        Good luck!<br/>
+        Tom
+    </p>
+    <p><a href="https://www.ensie.com">Go to Ensie</a></p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+
+
+
+
+
+

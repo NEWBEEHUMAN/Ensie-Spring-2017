@@ -1,0 +1,139 @@
+#Ensie/UserBundle/Resources/services.yml
+parameters:
+    my_user_provider.class: Ensie\UserBundle\Security\Core\User\FOSUBUserProvider
+
+services:
+    my_user_provider:
+        class: "%my_user_provider.class%"
+        #this is the place where the properties are passed to the UserProvider - see config.yml
+        arguments: [@fos_user.user_manager,{linkedin: linkedin_id}, @event_dispatcher]
+    ensie.ensie_user_manager:
+        class: Ensie\UserBundle\Security\Core\User\EnsieUserManager
+        arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, %fos_user.model.user.class%]
+        calls:
+            - [setLanguageService, ["@ensie.ensie_language_service"]]
+    ensie.user_ensie_user_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\UserBundle\Entity\EnsieUser
+    ensie.user_friend_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\UserBundle\Entity\Friend
+    ensie.user_popular_user_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\UserBundle\Entity\PopularUser
+
+    ensie.user_friend_service:
+        class: Ensie\UserBundle\Service\FriendService
+        arguments:
+            - @ensie.user_friend_repository
+            - @event_dispatcher
+
+    #twig
+    ensie_user.twig_company_header_image:
+        class: Ensie\UserBundle\Service\Twig\CompanyHeaderImage
+        arguments:
+            - @liip_imagine.cache.manager
+            - @vich_uploader.templating.helper.uploader_helper
+        tags:
+            - { name: twig.extension }
+    ensie_user.twig_friend:
+        class: Ensie\UserBundle\Service\Twig\Friend
+        arguments:
+            - @ensie.user_friend_service
+        tags:
+            - { name: twig.extension }
+    ensie_user.twig_profile_image:
+        class: Ensie\UserBundle\Service\Twig\ProfileImage
+        arguments:
+            - @liip_imagine.cache.manager
+            - @vich_uploader.templating.helper.uploader_helper
+        tags:
+            - { name: twig.extension }
+    ensie_user.twig_user_url:
+        class: Ensie\UserBundle\Service\Twig\UserUrl
+        arguments:
+          - @router
+        tags:
+            - { name: twig.extension }
+
+    #forms
+    ensie_user.form_factory:
+        class: Ensie\UserBundle\Form\Factory\UserFormFactory
+        arguments:
+          - @form.factory
+
+    ensie_user.registration_form_type:
+        class: Ensie\UserBundle\Form\RegisterType
+        arguments: [%fos_user.model.user.class%]
+        calls:
+          - [setSession, ["@session"]]
+        tags:
+          - { name: form.type, alias: ensie_user_registration }
+
+    #handlers
+    ensie_user.login_handler:
+        class:  Ensie\UserBundle\Security\Component\Authentication\Handler\LoginSuccessHandler
+        arguments:  [@router, @session]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+    ensie_user.logout_handler:
+        class:  Ensie\UserBundle\Security\Component\Authentication\Handler\LogoutSuccessHandler
+        arguments:  [@router, @session]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
+    #listerner
+    user.add_merchant_role_on_registration_succes_listener:
+        class:  Ensie\UserBundle\Event\EventListeners\AddEnsieRoleListener
+        arguments:
+            - @doctrine.orm.entity_manager
+            - "%user.role_enise_user%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    user.user_has_up_to_date_profile_listener:
+        class: Ensie\UserBundle\Event\EventListeners\UserHasUpToDateProfile
+        arguments:
+            - @router
+            - @security.context
+            - @session
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #we overwrite the fos user Resetting listener
+    fos_user.listener.resetting:
+        class:  Ensie\UserBundle\Event\EventListeners\ResettingListener
+        arguments:
+            - @router
+            - %fos_user.resetting.token_ttl%
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #listerner doctrine
+    user.user_update_listener:
+        class: Ensie\UserBundle\Event\EventListeners\UpdateUserListener
+        arguments:
+            - @service_container
+            - @liip_imagine.cache.manager
+            - @vich_uploader.templating.helper.uploader_helper
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    #namers
+    user.user_slug_directory_namer:
+        class: Ensie\UserBundle\Service\VichUploader\UsernameDirectoryNamer
+        arguments:
+            - @security.context
+    user.user_slug_file_namer:
+        class: Ensie\UserBundle\Service\VichUploader\UsernameFileNamer
+        arguments:
+            - @security.context

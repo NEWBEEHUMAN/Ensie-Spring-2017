@@ -1,0 +1,108 @@
+hip_mandrill:
+    api_key: 4Jq1-diuZHZpjWUVEc3p9g
+    disable_delivery: false # useful for dev/test environment. Default value is 'false'
+    default:
+        sender: afra@ensie.nl
+        sender_name: 'Afra van Ensie'
+
+ensie_mandrill_mailer:
+    #delivery_address: badjak1@gmail.com
+    #Watch the _ in the type
+    sales_address: sales@ensie.nl
+    templates:
+        registration:
+            nl:
+                register: #sent
+                    name: 'register-nl'
+                    class: mandrill_mailer.data_getter.user
+                register_company:
+                    name: 'register-company-nl'
+                    class: mandrill_mailer.data_getter.company_user
+                ensie_register_company:
+                    name: 'ensie-company-register'
+                    class: mandrill_mailer.data_getter.company_user
+            en:
+                register:
+                    name: 'register-en'
+                    class: mandrill_mailer.data_getter.user
+                register_company:
+                    name: 'register-company-en'
+                    class: mandrill_mailer.data_getter.company_user
+                ensie_register_company:
+                    name: 'ensie-company-register'
+                    class: mandrill_mailer.data_getter.company_user
+        reset:
+            nl:
+                password: #sent
+                    name: 'password-reset-nl'
+                    class: mandrill_mailer.data_getter.company_user
+            en:
+                password:
+                    name: 'password-reset-nl'
+                    class: mandrill_mailer.data_getter.company_user
+        reminder:
+            nl:
+                first_reminder:
+                    name: 'first-reminder-nl'
+                    class: mandrill_mailer.data_getter.user
+                second_reminder:
+                    name: 'second-reminder-nl'
+                    class: mandrill_mailer.data_getter.user
+                third_reminder:
+                    name: 'third-reminder-nl'
+                    class: mandrill_mailer.data_getter.user
+                extra_reminder:
+                    name: 'extra-reminder-nl'
+                    class: mandrill_mailer.data_getter.user
+            en:
+                first_reminder:
+                    name: 'first-reminder-en'
+                    class: mandrill_mailer.data_getter.user
+                second_reminder:
+                    name: 'second-reminder-en'
+                    class: mandrill_mailer.data_getter.user
+                third_reminder:
+                    name: 'third-reminder-en'
+                    class: mandrill_mailer.data_getter.user
+                extra_reminder:
+                    name: 'extra-reminder-en'
+                    class: mandrill_mailer.data_getter.user
+        stats:
+            nl:
+                notification:
+                    name: 'notification-nl'
+                    class: mandrill_mailer.data_getter.notification
+                stats:
+                    name: 'statistics-nl'
+                    class: mandrill_mailer.data_getter.stats
+            en:
+                stats:
+                    name: 'statistics-en'
+                    class: mandrill_mailer.data_getter.notification
+                notification:
+                    name: 'notification-en'
+                    class: mandrill_mailer.data_getter.stats
+        definition:
+            nl:
+                accepted:
+                    name: 'definition-accepted-nl'
+                    class: mandrill_mailer.data_getter.definition_accepted
+                rejected:
+                    name: 'definition-rejected-nl'
+                    class: mandrill_mailer.data_getter.definition_rejected
+            en:
+                accepted:
+                    name: 'definition-accepted-en'
+                    class: mandrill_mailer.data_getter.definition_accepted
+                rejected:
+                    name: 'definition-rejected-en'
+                    class: mandrill_mailer.data_getter.definition_rejected
+        contact:
+            nl:
+                writer:
+                    name: 'contact-writer-nl'
+                    class: mandrill_mailer.data_getter.contact_writer
+            en:
+                writer:
+                    name: 'contact-writer-en'
+                    class: mandrill_mailer.data_getter.contact_writer

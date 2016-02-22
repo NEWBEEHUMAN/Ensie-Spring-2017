@@ -1,0 +1,19 @@
+{% extends "base_email.nl.html.twig" %}
+
+{% block content %}
+    <h2>Beste {{ ensieUserFriend.formattedName }}</h2>
+    <p>
+        Gefeliciteerd! Een andere gebruiker van Ensie heeft jou toegevoegd aan zijn/haar
+        favorieten. Dat betekent dat je goed bezig bent en dat men graag meer van je wil zien.
+        Begin <a href="{{ url('profile_definition_write', { 'locale': 'nl' }) }}">hier</a> direct met het toevoegen
+        van een nieuwe definitie en breid zo je Ensie uit.
+    </p>
+    <p>
+        Good luck!<br/>
+        Tom
+    </p>
+    <p><a href="https://www.ensie.nl">Ga naar Ensie</a></p>
+{% endblock %}
+
+
+

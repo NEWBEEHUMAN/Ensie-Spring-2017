@@ -1,0 +1,99 @@
+{% extends "base.html.twig" %}
+
+{% if form is defined %}
+    {% form_theme form 'form_errors.html.twig' %}
+{% endif %}
+
+{% block content %}
+    {% block submenu %}
+    <section class="subnav">
+        <nav>
+            <a href="{{ path('profile_dashboard') }}">{{ simpleText('profile.profile_dashboard') }}</a>{{ simpleTextSonataAdminLink('profile.profile_dashboard')|raw }}
+            <a href="{{ path('profile_definition_write') }}">{{ simpleText('profile.menu_write') }}</a>{{ simpleTextSonataAdminLink('profile.menu_write')|raw }}
+            <a href="{{ path('profile_definitions') }}">{{ simpleText('profile.menu_definitions') }}</a>{{ simpleTextSonataAdminLink('profile.menu_definitions')|raw }}
+            <a href="{{ path('profile_notifications_view') }}">{{ simpleText('profile.menu_notifications') }}</a>{{ simpleTextSonataAdminLink('profile.menu_notifications')|raw }}
+            <a href="{{ path('profile_profile_edit') }}">{{ simpleText('profile.menu_profile') }}</a>{{ simpleTextSonataAdminLink('profile.menu_profile')|raw }}
+        </nav>
+    </section>
+    {% endblock %}
+{% endblock %}
+
+{% block overlays %}
+
+    {{ parent() }}
+
+    {% if status is defined and status == 'create'  %}
+    <div class="modal" data-selector="first-write">
+        <header>
+            <h2>{{ simpleText('profile.definition_first_write_create_overlay_title') }}</h2>{{ simpleTextSonataAdminLink('profile.definition_first_write_create_overlay_title')|raw }}</h2>
+        </header>
+        <div class="modal-content">
+            <p>{{ simpleText('profile.definition_first_write_create_overlay_content')|raw }}{{ simpleTextSonataAdminLink('profile.definition_first_write_create_overlay_content', true)|raw }}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% if status is defined and status == 'company-create' %}
+        <div class="modal" data-selector="first-write">
+            <header>
+                <h2>{{ simpleText('profile.definition_write_company_create_overlay_title') }}</h2>{{ simpleTextSonataAdminLink('profile.definition_write_company_create_overlay_title')|raw }}</h2>
+            </header>
+            <div class="modal-content">
+                <p>{{ simpleText('profile.definition_write_company_create_overlay_title_content')|raw }}{{ simpleTextSonataAdminLink('profile.definition_write_company_create_overlay_title_content', true)|raw }}</p>
+            </div>
+        </div>
+    {% endif %}
+    {% if status is defined and status == 'edit' %}
+        <div class="modal" data-selector="first-write">
+            <header>
+                <h2>{{ simpleText('profile.definition_first_write_edit_overlay_content') }}</h2>{{ simpleTextSonataAdminLink('profile.definition_first_write_edit_overlay_content')|raw }}</h2>
+            </header>
+            <div class="modal-content">
+                <p>{{ simpleText('profile.definition_first_write_edit_overlay_content')|raw }}{{ simpleTextSonataAdminLink('profile.definition_first_write_edit_overlay_content', true)|raw }}</p>
+            </div>
+        </div>
+    {% endif %}    
+{% endblock %}
+
+{% block childJavascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('[data-action="delete"]').click(function(){
+                dataSelector = $('[data-selector="delete"]');
+                var slug = $(this).data('id');
+                var word = $(this).data('word');
+                var url = $(this).data('url');
+                var elem = dataSelector.find("header h2");
+                elem.text(elem.text().replace("%word%", word));
+                elem = dataSelector.find(".modal-content p");
+                elem.html(elem.html().replace("%word%", '<strong>' + word + '</strong>'));
+                console.info(url);
+                $('.modal-content .form .delete').click(function(event){
+                    event.preventDefault()
+                    window.location = url;
+                });
+            });
+
+            $('.content').find('form:first').submit(function (e) {
+                if($('#ensie_user_profile_company_websiteUrl').length){
+                    var url = $('#ensie_user_profile_company_websiteUrl').val();
+                    if (!/^https?:\/\//i.test(url)) {
+                        $('#ensie_user_profile_company_websiteUrl').val('http://' + url);
+                    }
+                }
+            });
+
+            {% if status is defined and status == 'create'  %}
+            $('.overlay:hidden').fadeIn('fast', function() { $(this).find('[data-selector="first-write"]').fadeIn('fast'); });
+            {% endif %}
+            {% if status is defined and status == 'company-create'  %}
+            $('.overlay:hidden').fadeIn('fast', function() { $(this).find('[data-selector="first-write"]').fadeIn('fast'); });
+            {% endif %}
+            {% if status is defined and status == 'edit'  %}
+            $('.overlay:hidden').fadeIn('fast', function() { $(this).find('[data-selector="first-write"]').fadeIn('fast'); });
+            {% endif %}
+        });
+
+    </script>
+{% endblock %}

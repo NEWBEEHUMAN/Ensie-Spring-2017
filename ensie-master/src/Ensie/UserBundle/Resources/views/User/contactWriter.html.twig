@@ -1,0 +1,42 @@
+{% if form is defined %}
+    {% form_theme form 'form_errors.html.twig' %}
+{% endif %}
+<div class="modal" data-selector="contact-writer">
+    <header>
+        <h2>{{ simpleText('overlay.contact_writer_title') }}{{ simpleTextSonataAdminLink('overlay.contact_writer_title') | raw }}</h2>
+    </header>
+    <div class="modal-content">
+        <p>{{ simpleText('overlay.contact_writer_description') }}{{ simpleTextSonataAdminLink('overlay.contact_writer_description') | raw }}</p>
+        {% if definition is defined  %}
+        <form method="post" class="contact_writer_form" action="{{ path('user_contact_writer_definition', { 'userSlug': definition.ensieUser.slug, 'definitionSlug': definition.slug}) }}">
+            {% else %}
+            <form method="post" class="contact_writer_form" action="{{ path('user_contact_writer_user_details', { 'userSlug': ensieUser.slug}) }}">
+                {% endif %}
+                <ul class="form">
+                    <li>
+                        <label for="i1">
+                            {{ simpleText('overlay.contact_writer_email_label') }}{{ simpleTextSonataAdminLink('overlay.contact_writer_email_label') | raw }}
+                        </label>
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </li>
+                    <li>
+                        <label for="i1">
+                            {{ simpleText('overlay.contact_writer_description_label') }}{{ simpleTextSonataAdminLink('overlay.contact_writer_description_label') | raw }}
+                        </label>
+                        {{ form_errors(form.message) }}
+                        {{ form_widget(form.message) }}
+                        {{ form_widget(form) }}
+                    </li>
+                    <li class="buttonwrapper">
+                        <input type="submit" id="submitContactWriter" value="{{ simpleText('overlay.contact_writer_sent_button') }}" />{{ simpleTextSonataAdminLink('overlay.contact_writer_sent_button') | raw }}
+                    </li>
+                </ul>
+            </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#{{ form.url.vars.id }}').val(window.location.href);
+    });
+</script>

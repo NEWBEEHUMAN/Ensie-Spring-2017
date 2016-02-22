@@ -1,0 +1,59 @@
+services:
+
+    twig.template_url_translator:
+        class: Ensie\MailerBundle\Service\TwigTemplateUrlTranslator
+        arguments:
+            - "@templating.engine.twig"
+
+    mailer.mailer_service:
+        class: Ensie\MailerBundle\Service\MailerService
+        arguments:
+            - "%mail_from_address%"
+            - "@mailer"
+            - "@twig"
+            - "@translator"
+        calls:
+            - [setTwigTemplateUrlTranslator, ["@twig.template_url_translator"]]
+
+    #listeners
+    mailer.send_friend_added_listener:
+        class: Ensie\MailerBundle\Event\EventListeners\FriendAddedMailListener
+        arguments:
+            - @mailer.mailer_service
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie_definition.spam_definition_listener:
+        class: Ensie\MailerBundle\Event\EventListeners\DefinitionSpamMailListener
+        arguments:
+            - @mailer.mailer_service
+            - %mail_to_admin_address%
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie_definition.definition_validation_listener:
+        class: Ensie\MailerBundle\Event\EventListeners\DefinitionValidationMailListener
+        arguments:
+            - @mailer.mailer_service
+            - %mail_to_admin_address%
+        tags:
+            - { name: kernel.event_subscriber }
+
+#   Set in the new mandrillmailbundle
+#   ensie_definition.definition_rejected_listener:
+#        class: Ensie\MailerBundle\Event\EventListeners\DefinitionRejectedMailListener
+#        arguments:
+#            - @mailer.mailer_service
+#        tags:
+#            - { name: kernel.event_subscriber }
+
+    ensie_definition.definition_created_listener:
+        class: Ensie\MailerBundle\Event\EventListeners\DefinitionCreatedMailListener
+        arguments:
+            - @mailer.mailer_service
+            - @ensie.user_friend_repository
+            - %mail_to_admin_address%
+        tags:
+            - { name: kernel.event_subscriber }
+
+

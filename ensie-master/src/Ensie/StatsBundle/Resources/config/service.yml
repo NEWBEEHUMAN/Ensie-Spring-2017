@@ -1,0 +1,13 @@
+services:
+    ensie.stats.basic_stats_service:
+        class: Ensie\StatsBundle\Service\BasicStatsService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+    ensie.stats.email_stats_service:
+        class: Ensie\StatsBundle\Service\EmailStatsService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+    ensie.stats.email_notification_service:
+        class: Ensie\StatsBundle\Service\EmailNotificationService
+        arguments:
+            - "@doctrine.orm.entity_manager"

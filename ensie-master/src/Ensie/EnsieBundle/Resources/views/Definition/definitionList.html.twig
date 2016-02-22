@@ -1,0 +1,5 @@
+<ul>
+    {% for definition in definitionList %}
+    <li><a href="{{ definitionPath(definition) }}"><img src="{{ getProfileImage(definition.ensieUser, 'micro') }}" alt="{{ definition.ensieUser.formattedName }}">{{ definition.word }}</a></li>
+    {% endfor %}
+</ul>

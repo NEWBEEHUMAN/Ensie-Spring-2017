@@ -1,0 +1,161 @@
+ensie_wall_of_fame:
+    resource: "@EnsieWallOfFameBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+#categories
+category_overview:
+    path: /categorie
+    defaults: { _controller: EnsieEnsieBundle:Category:categoryOverview }
+    methods: [GET]
+category:
+    path: /categorie/{slug}
+    defaults: { _controller: EnsieEnsieBundle:Category:category }
+    methods: [GET]
+subcategory:
+    path: /categorie/{category}/{slug}
+    defaults: { _controller: EnsieEnsieBundle:Category:subcategory }
+    methods: [GET]
+
+#self defined
+home:
+    path:      /
+    defaults:  { _controller: EnsieEnsieBundle:Definition:home }
+
+notifications:
+    resource: "@EnsieEnsieBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+#ensie_user:
+#    resource: "@EnsieUserBundle/Controller/"
+#    type:     annotation
+#    prefix:   /login
+
+#image lib
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+#sonata
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+ensie_admin_definition_get_ensies_by_user:
+    defaults: {_controller: EnsieEnsieBundle:Definition:getEnsiesByUser}
+    pattern:   /admin/ensie/admin-definition/get-ensies-by-user/{id}
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+
+#FOSUserBundle
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+login_redirect:
+    defaults:  { _controller: EnsieUserBundle:Security:loginRedirect }
+    path:   /loginr
+
+#fos_user_profile:
+#    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+#    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_registration_register:
+    path:      /register/
+    defaults:  { _controller: EnsieUserBundle:Registration:register }
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_resetting_overlay:
+    path:      /
+    defaults:  { _controller: EnsieEnsieBundle:Definition:home }
+
+fos_user_reset_success:
+    path:      /reset/success
+    defaults:  { _controller: EnsieUserBundle:Resetting:resetSuccess }
+
+#fos_user_change_password:
+#    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+#    prefix: /profile
+
+#HWIOAuthBundle routes
+hwi_oauth_security:
+  resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+  prefix: /connect
+
+hwi_oauth_connect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+  prefix: /connect
+
+hwi_oauth_redirect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+  prefix: /connect
+
+linkedin_login:
+  pattern: /login/check-linkedin
+
+admin_role_add:
+    defaults:  { _controller: EnsieUserBundle:Role:addSuperAdmin }
+    path:   /role/addadmin
+
+admin_role_remove:
+    defaults:  { _controller: EnsieUserBundle:Role:removeSuperAdmin }
+    path:   /role/removeadmin
+
+sitemap:
+    path:     /sitemap.{_format}
+    defaults: { _controller: EnsieEnsieBundle:Sitemap:generate }
+    requirements:
+        _format:  xml
+
+#redirect
+redirect_definition:
+    defaults:  { _controller: EnsieRedirectBundle:Redirect:redirectOldDefinition }
+    path:   /definitie/{word}
+
+redirect_author:
+    defaults:  { _controller: EnsieRedirectBundle:Redirect:redirectOldWriter }
+    path:   /auteur/{name}
+
+other_redirects:
+    resource: routing_redirect.yml
+
+#cron
+cron_reminder_mail:
+    defaults:  { _controller: EnsieCronBundle:Cron:reminderMail }
+    path:   /cron/remindermail
+
+cron_stats_mail:
+    defaults:  { _controller: EnsieCronBundle:Cron:statsMail }
+    path:   /cron/statsmail
+
+cron_notification_mail:
+    defaults:  { _controller: EnsieCronBundle:Cron:notificationMail }
+    path:   /cron/notificationmail
+
+cron_notification__bart_mail:
+    defaults:  { _controller: EnsieCronBundle:Cron:notificationBartMail }
+    path:   /cron/notificationbartmail
+
+#load basic routes
+i18n_routes:
+    resource: routingi18.yml
+    type: be_simple_i18n
+
+#redirect
+remove_trailing_slash:
+    path: /{url}
+    defaults: { _controller: EnsieRedirectBundle:Redirect:removeTrailingSlash }
+    requirements:
+        url: .*/$
+    methods: [GET]

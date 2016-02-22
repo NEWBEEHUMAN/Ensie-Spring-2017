@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <section class="subnav">
+        <nav>
+            <a href="{{ path('category', {'slug': category.slug }) }}">{{ category.title }}</a>
+        </nav>
+    </section>
+
+    <section class="categorydetailpage">
+        <header class="categorydetail-header" style="background-image: url({{ vich_uploader_asset(category, 'category_header') }})">
+            <div class="category-info">
+                <div class="category-icon" style="background-color: #000;">
+                    <img src="{{ vich_uploader_asset(category, 'category_logo') }}" alt="">
+                </div>
+                <h1>{{ category.title }}</h1>
+                <h2>{{ category.subtitle }}</h2>
+                {#
+                <ul class="category-authors">
+                    <li><img src="img/user.jpg" alt=""></li>
+                    <li><img src="img/user.jpg" alt=""></li>
+                    <li><img src="img/user.jpg" alt=""></li>
+                    <li><img src="img/user.jpg" alt=""></li>
+                    <li><img src="img/user.jpg" alt=""></li>
+                    <li><img src="img/user.jpg" alt=""></li>
+                    <li class="showmore"><a href="#" data-show="more-faces">&plus;</a></li>
+                    <li class="morefaces">
+                        <ul>
+                            <li><img src="img/user.jpg" alt=""></li>
+                            <li><img src="img/user.jpg" alt=""></li>
+                            <li><img src="img/user.jpg" alt=""></li>
+                        </ul>
+                    </li>
+                </ul>
+                #}
+            </div>
+        </header>
+        <a href="#" class="button cta" data-action="login">Begin meteen met schrijven</a>
+    </section>
+
+
+
+    <section class="categorypage">
+        <div class="categories">
+            <div class="wrapper">
+                {% for subcategory in subcategories %}
+                    <div class="category-item">
+                        <div class="category-visual">
+                            <a href="{{ path('subcategory', {'slug': subcategory.slug, 'category': category.slug }) }}"><img src="{{ vich_uploader_asset(subcategory, 'subcategory_tile') }}" alt="" class="category-image">
+                                <img src="{{ vich_uploader_asset(subcategory, 'subcategory_logo') }}" alt="" class="category-icon">
+                                <h2 class="category-title">{{ subcategory.title }}</h2>
+                                <h3 class="category-subtitle">{{ subcategory.subtitle }}</h3>
+                            </a>
+                        </div>
+                        <ul class="category-articles">
+                        {% for definition in subcategory.definitions|slice(0, 5) %}
+                                <li>
+                                    <img src="{{ getProfileImage(definition.ensieUser, 'small') }}" alt="">
+                                    <h3><a href="{{ path('definition_definition', {'definitionSlug': definition.slug, 'userSlug': definition.ensieUser.slug}) }}">{{ definition.word }}</a></h3>
+                                </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

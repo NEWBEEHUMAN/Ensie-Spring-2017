@@ -1,0 +1,113 @@
+{% block profileditform %}
+<section class="admin">
+    <div class="wrapper">
+        {% if ensieUser.firstLogin %}
+        <header>
+            <h1>{{ simpleText('profile.profile_edit_title_firstlogin') }}{{ simpleTextSonataAdminLink('profile.profile_edit_title_firstlogin')|raw }}</h1>
+        </header>
+        {% else %}
+        <header>
+            <h1>{{ simpleText('profile.profile_edit_title') }}{{ simpleTextSonataAdminLink('profile.profile_edit_title')|raw }}</h1>
+        </header>
+        {% endif %}
+
+        <div class="content">
+            {% if ensieUser.firstLogin %}
+                <div class="wrapper">
+                    <p>{{ simpleText('profile.profile_edit_content_firstlogin')|raw }}{{ simpleTextSonataAdminLink('profile.profile_edit_content_firstlogin')|raw }}</p>
+                </div>
+            {% else %}
+            {% endif %}
+            {{ form_start(form, {'action': url('profile_profile_edit'), 'method': 'post'}) }}
+            <div class="form-wrapper">
+                <div class="left">
+                    <div class="avatar-wrapper">
+                        <img src="{{ getProfileImage(ensieUser, 'medium') }}">
+                        <div class="change-avatar">
+                            <span>{{ simpleText('profile.profile_edit_edit_foto') }}{{ simpleTextSonataAdminLink('profile.profile_edit_edit_foto')|raw }}</span>
+                            {{ form_widget(form.pictureFile) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <ul class="form large">
+                        <li>
+                            <label for="{{ form.formattedName.vars.id }}">{{ simpleText('profile.profile_edit_fullname') }}{{ simpleTextSonataAdminLink('profile.profile_edit_fullname')|raw }}</label>
+                            {{ form_errors(form.formattedName) }}
+                            {{ form_widget(form.formattedName) }}
+                            <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_fullname_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_fullname_help')|raw }}
+                        </li>
+                        {% if ensieUser.linkedinAccessToken is empty %}
+                            <li>
+                                <label for="{{ form.username.vars.id }}">{{ simpleText('profile.profile_edit_username') }}{{ simpleTextSonataAdminLink('profile.profile_edit_username')|raw }}</label>
+                                {{ form_errors(form.username) }}
+                                {{ form_widget(form.username) }}
+                                <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_username_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_username_help')|raw }}
+                            </li>
+                        {% else %}
+                            <li>
+                                <label for="{{ form.email.vars.id }}">{{ simpleText('profile.profile_edit_email') }}{{ simpleTextSonataAdminLink('profile.profile_edit_email')|raw }}</label>
+                                {{ form_errors(form.email) }}
+                                {{ form_widget(form.email) }}
+                                <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_email_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_email_help')|raw }}
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <ul class="form large">
+                <li>
+                    <label for="{{ form.headline.vars.id }}">{{ simpleText('profile.profile_edit_headline') }}{{ simpleTextSonataAdminLink('profile.profile_edit_headline')|raw }}</label>
+                    {{ form_errors(form.headline) }}
+                    <div class="textarea-wrapper">
+                        {{ form_widget(form.headline) }}
+                    </div>
+                    <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_headline_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_headline_help')|raw }}
+                </li>
+                <li>
+                    <label for="{{ form.bio.vars.id }}">{{ simpleText('profile.profile_edit_bio') }}{{ simpleTextSonataAdminLink('profile.profile_edit_bio')|raw }}</label>
+                    {{ form_errors(form.bio) }}
+                    <div class="textarea-wrapper">
+                        {{ form_widget(form.bio) }}
+                    </div>
+                    <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_bio_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_bio_help')|raw }}
+                </li>
+                <li>
+                    <div class="textbox-wrapper">
+                        <label for="{{ form.googlePlusUrl.vars.id }}">{{ simpleText('profile.profile_edit_googlePlusUrl') }}{{ simpleTextSonataAdminLink('profile.profile_edit_googlePlusUrl')|raw }}</label>
+                        {{ form_errors(form.googlePlusUrl) }}
+                        {{ form_widget(form.googlePlusUrl) }}
+                        <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_googlePlusUrl_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_googlePlusUrl_help')|raw }}
+                    </div>
+                    <div class="textbox-wrapper">
+                        <label for="{{ form.linkedInUrl.vars.id }}">{{ simpleText('profile.profile_edit_linkedInUrl') }}{{ simpleTextSonataAdminLink('profile.profile_edit_linkedInUrl')|raw }}</label>
+                        {{ form_errors(form.linkedInUrl) }}
+                        {{ form_widget(form.linkedInUrl) }}
+                        <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_linkedInUrl_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_linkedInUrl_help')|raw }}
+                    </div>
+                </li>
+                <li>
+                    <div class="textbox-wrapper">
+                        <label for="{{ form.contactSetting.vars.id }}">{{ simpleText('profile.profile_edit_contactSetting') }}{{ simpleTextSonataAdminLink('profile.profile_edit_contactSetting')|raw }}</label>
+                        {{ form_errors(form.contactSetting) }}
+                        {{ form_widget(form.contactSetting) }}
+                        <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_contactSetting_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_contactSetting_help')|raw }}
+                    </div>
+                    <div class="textbox-wrapper">
+                        {{ form_errors(form.receiveEmails) }}
+                        {{ form_widget(form.receiveEmails) }}
+                        <label for="{{ form.receiveEmails.vars.id }}">{{ simpleText('profile.profile_edit_receive_emails') }}{{ simpleTextSonataAdminLink('profile.profile_edit_receive_emails')|raw }}</label>
+                        <span class="tooltip" data-tooltip="{{ simpleText('profile.profile_edit_receive_emails_help') }}">?</span>{{ simpleTextSonataAdminLink('profile.profile_edit_receive_emails_help')|raw }}
+                    </div>
+                </li>
+                <li>
+                    <input type="submit" value="{{  simpleText('profile.button_submit_changes') }}">{{ simpleTextSonataAdminLink('profile.button_submit_changes')|raw }}
+                    {{ form_widget(form._token) }}
+                </li>
+            </ul>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            var ensieUser = $("#{{ admin.uniqId }}_ensieUser");
+            ensieUser.change(updateEnsies()); // Bind the function to updateCategories
+            ensieUser.change(); // Manual trigger to update categories in Document load.
+
+            function updateEnsies(){
+                return function () {
+                    var ensieUserId = $("#{{ admin.uniqId }}_ensieUser option:selected").val();
+                    var ensie = $("#{{ admin.uniqId }}_ensie");
+                    ensie.select2("val", null);
+                    ensie.empty();
+                    ensie.trigger("liszt:updated");
+
+                    var url = '/admin/ensie/admin-definition/get-ensies-by-user/' + ensieUserId ;
+                    $.post(url, { ensieUserId: ensieUserId }, function(data){
+                        ensie.empty().append(data);
+                        ensie.trigger("liszt:updated");
+                    },"text");
+
+                    //ensie.val("option:first").attr("selected", true);
+                };
+            }
+        });
+    </script>
+{% endblock %}

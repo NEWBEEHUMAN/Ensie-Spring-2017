@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <section class="subnav">
+        <nav>
+            <a href="#">Categorieën</a>
+        </nav>
+    </section>
+<section class="categorypage">
+    <div class="categories">
+        <div class="wrapper">
+            {% for category in categoryList %}
+                <div class="category-item">
+                    <div class="category-visual">
+                        <a href="{{ path('category', {'slug': category.slug }) }}"><img src="{{ vich_uploader_asset(category, 'category_tile') }}" alt="" class="category-image">
+                            <img src="{{ vich_uploader_asset(category, 'category_logo') }}" alt="" class="category-icon">
+                            <h2 class="category-title">{{ category.title }}</h2>
+                            <h3 class="category-subtitle">{{ category.subtitle }}</h3>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

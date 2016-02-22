@@ -1,0 +1,17 @@
+ensie.definition.form.field.word.validation.not_blank: "The title can't be empty"
+ensie.definition.form.field.word.validation.already_exists: 'You already defined this word'
+ensie.definition.form.field.definition.validation.not_blank: "The definition can't be empty"
+ensie.definition.form.field.description.validation.not_blank: "The description can't be empty"
+ensie.definition.form.field.keywords.validation.min_message: 'Add at least three keywords separated by a comma'
+ensie.definition.form.field.esie.validation.not_blank: 'You have to select or create a new Ensie'
+ensie.definition.form.field.definition.validation.word_count.min_message: 'Please enter at least %min% words for your definition'
+ensie.definition.form.field.definition.validation.word_count.max_message: 'Please enter not more than %max% words for your definition'
+ensie.definition.form.field.description.validation.word_count.min_message: 'Please enter at least %min% words for your description'
+ensie.definition.form.field.description.validation.word_count.max_message: 'Please enter not more than %max% words for your description'
+ensie.user.form.field.googlePlusUrl.validation.no_google_plus_in_url: "It looks like this isn't a Google+ Url, please fill in a valid Google+ profile url"
+ensie.user.form.field.linkedInUrl.validation.no_linkin_in_url: "It looks like this isn't a LinkedIn Url, please fill in a valid LinkedIn profile url"
+ensie.user.form.field.terms_accepted.validation.not_empty: 'You must accept the terms'
+ensie.user.form.field.bio.validation.max_length_exceeded: 'Your bio is too long, there is a maximum of 140 characters'
+ensie.user.form.field.headline.validation.max_length_exceeded: 'There is a maximum of 50 characters.'
+ensie.user.form.field.contact.validation.email: 'Fill in a correct e-mailaddress'
+common.notBlank: 'This value can not be blank'

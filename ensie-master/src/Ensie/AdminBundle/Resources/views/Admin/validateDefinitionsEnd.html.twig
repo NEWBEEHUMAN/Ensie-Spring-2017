@@ -1,0 +1,16 @@
+{% extends "EnsieUserBundle:Profile:base_profile.html.twig" %}
+
+{% block content %}
+    {{ parent() }}
+    <section class="admin">
+        <div class="wrapper">
+            <header>
+                <h1>Validate definition send</h1>
+            </header>
+            <div>
+                <strong>Feedback send for definition {{ definition.word }}</strong>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

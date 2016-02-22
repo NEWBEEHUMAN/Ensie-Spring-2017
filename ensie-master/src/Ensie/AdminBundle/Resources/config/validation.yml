@@ -1,0 +1,5 @@
+Ensie\AdminBundle\Model\DefinitionValidation:
+    properties:
+        feedback:
+            - NotBlank:
+                message: 'No positieve or negative feedback given'

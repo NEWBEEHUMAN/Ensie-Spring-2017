@@ -1,0 +1,52 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+services:
+    monolog_formatter_html:
+        class: Monolog\Formatter\HtmlFormatter
+    monolog.processor.web:
+        class: Monolog\Processor\WebProcessor
+        tags:
+            - { name: monolog.processor, handler: swift }
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      grouped
+            channels: [!flow]
+        grouped:
+            type:    group
+            members: [streamed, buffered]
+        streamed:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        buffered:
+            type:    buffer
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: errors@ensie.nl
+            to_email:   marijn@noxit.nl
+            subject:    An Error Occurred!
+            level:      critical
+            content_type: text/html
+            formatter:  monolog_formatter_html
+        flow:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.flow.log"
+            level: info
+            channels: [flow]
+    channels: [flow]

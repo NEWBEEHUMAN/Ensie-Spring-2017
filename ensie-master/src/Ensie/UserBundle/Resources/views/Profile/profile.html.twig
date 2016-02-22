@@ -1,0 +1,32 @@
+{% extends "EnsieUserBundle:Profile:base_profile.html.twig" %}
+
+{% block submenu %}
+    {% if ensieUser.firstLogin %}
+        <section class="subnav">
+            <nav>
+            </nav>
+        </section>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    {% embed userEditFormTemplatePath %}{% endembed %}
+{% endblock %}
+
+{% block childJavascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@EnsieAssetBundle/Resources/public/js/wordcounter.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $('.char-counter').each(function(){
+           $(this).charCounter({ limit: $(this).data('length') });
+           $(this).trigger('keyup');
+        });
+    </script>
+{% endblock %}

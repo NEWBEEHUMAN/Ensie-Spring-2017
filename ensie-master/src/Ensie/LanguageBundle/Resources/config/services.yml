@@ -1,0 +1,19 @@
+services:
+    ensie.language_language_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\LanguageBundle\Entity\Language
+
+    ensie.ensie_language_service:
+        class: Ensie\LanguageBundle\Service\LanguageService
+        arguments:
+            - @ensie.language_language_repository
+            - @session
+    ensie.twig.language_extension:
+        class: Ensie\LanguageBundle\Service\Twig\LanguageExtension
+        arguments:
+          - @ensie.ensie_language_service
+        tags:
+            - { name: twig.extension }

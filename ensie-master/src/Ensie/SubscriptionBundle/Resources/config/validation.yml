@@ -1,0 +1,5 @@
+Ensie\SubscriptionBundle\Entity\Subscription:
+    properties:
+        identifier :
+            - NotBlank: {}
+            - Length: {min: 3}

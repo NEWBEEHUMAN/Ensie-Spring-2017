@@ -1,0 +1,18 @@
+<p>{{ simpleText('overlay.resetting_description') }}{{ simpleTextSonataAdminLink('overlay.resetting_description') | raw }}</p>
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    <ul class="form">
+        {% if invalid_username is defined %}
+        <li>
+            {{ simpleText('overlay.resetting.request.invalid_username') }}{{ simpleTextSonataAdminLink('overlay.resetting.request.invalid_username') | raw }}
+        </li>
+        {% endif %}
+        <li>
+            <label for="username">{{ simpleText('overlay.login_form_username') }}</label>{{ simpleTextSonataAdminLink('overlay.login_form_username') | raw }}
+            <input type="text" id="username" name="username" required="required" />
+        </li>
+        <li class="buttonwrapper">
+            <input type="submit" id="submitResettingForm" value="{{ simpleText('overlay.resetting.request.submit') }}" />{{ simpleTextSonataAdminLink('overlay.resetting.request.submit') | raw }}
+
+        </li>
+    </ul>
+</form>

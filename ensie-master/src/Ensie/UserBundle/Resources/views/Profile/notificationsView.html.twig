@@ -1,0 +1,58 @@
+{% extends "EnsieUserBundle:Profile:base_profile.html.twig" %}
+
+{% block content %}
+    {{ parent() }}
+    <section class="admin">
+        <div class="wrapper">
+            <header>
+                <h1>{{ simpleText('profile.notifications_title') }}{{ simpleTextSonataAdminLink('profile.notifications_title')|raw }}</h1>
+            </header>
+
+            <div class="list updates">
+
+                {% if notifications|length == 0 %}
+                <div class="item sticky">
+                    {{ simpleText('profile.dashboard_no_notifications_found') }}{{ simpleTextSonataAdminLink('profile.dashboard_no_notifications_found')|raw }}
+                </div>
+                {%  endif %}
+                {% for notification in notifications %}
+                <div class="item sticky {% if not notification.viewed %}new{% else %}{% endif %}">
+					<span class="type {{ notification.type }}">
+                        {%  if notification.type == 'accepted' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><path d="M30 60C13.5 60 0 46.5 0 30S13.5 0 30 0s30 13.5 30 30S46.5 60 30 60zM30 2C14.6 2 2 14.6 2 30s12.6 28 28 28 28-12.6 28-28S45.4 2 30 2z"/><path d="M30 52.4c-10.8 0-20-9.4-20-20.4 0-0.6 0.4-1 1-1s1 0.4 1 1c0 10 8.2 18.4 18 18.4S48 42 48 32c0-0.6 0.4-1 1-1s1 0.4 1 1C50 43.1 40.8 52.4 30 52.4z"/><path d="M24 26c-0.6 0-1-0.4-1-1 0-2.2-2-4.1-4.3-4.1 -2.2 0-4.7 1.8-4.7 4.1 0 0.6-0.4 1-1 1s-1-0.4-1-1c0-3.5 3.5-6.1 6.7-6.1 3.4 0 6.3 2.8 6.3 6.1C25 25.6 24.6 26 24 26z"/><path d="M47 26c-0.6 0-1-0.4-1-1 0-2.3-2.5-4.1-4.7-4.1C39 20.9 37 22.8 37 25c0 0.6-0.4 1-1 1s-1-0.4-1-1c0-3.2 3-6.1 6.3-6.1 3.1 0 6.7 2.6 6.7 6.1C48 25.6 47.6 26 47 26z"/></svg>
+                        {% elseif notification.type == 'rejected' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><path d="M30 60C13.5 60 0 46.5 0 30S13.5 0 30 0s30 13.5 30 30S46.5 60 30 60zM30 2C14.6 2 2 14.6 2 30s12.6 28 28 28 28-12.6 28-28S45.4 2 30 2z"/><path d="M49 53c-0.6 0-1-0.4-1-1 0-10.1-8.4-19-18-19s-18 8.9-18 19c0 0.6-0.4 1-1 1s-1-0.4-1-1c0-11.2 9.3-21 20-21s20 9.8 20 21C50 52.6 49.6 53 49 53z"/><path d="M19 26c-3.4 0-6-2.6-6-6 0-0.6 0.4-1 1-1s1 0.4 1 1c0 2.2 1.8 4 4 4s4-1.8 4-4c0-0.6 0.4-1 1-1s1 0.4 1 1C25 23.4 22.4 26 19 26z"/><path d="M41 26c-3.4 0-6-2.6-6-6 0-0.6 0.4-1 1-1s1 0.4 1 1c0 2.2 1.8 4 4 4s4-1.8 4-4c0-0.6 0.4-1 1-1s1 0.4 1 1C47 23.4 44.4 26 41 26z"/></svg>
+                        {% elseif notification.type == 'favorite' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 98.6 92.6" enable-background="new 0 0 98.6 92.6" xml:space="preserve"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7 89.1l7.1-31.7L4.1 35.5l31.1-4.9L49.3 4l14.1 26.6 31.1 4.9L70.8 57.4l6.7 31.7L49.3 74.4 20.7 89.1zM49.3 69.5L71.4 81l-5.3-25.2L85 38.5l-24.3-3.8L49.3 13.1 37.9 34.6l-24.3 3.8 18.9 17.4L26.9 81 49.3 69.5z"/><path d="M80.1 92.6L49.3 76.5 18 92.6l7.8-34.5L0 34.3l34-5.4L49.3 0l15.4 28.9 34 5.4L72.9 58.1 80.1 92.6zM8.3 36.8l21.6 20 -6.5 28.8 25.9-13.3 25.5 13.3 -6.1-28.8 21.6-20 -28.1-4.4L49.3 8 36.4 32.3 8.3 36.8zM74.1 84.6L49.3 71.6 24.2 84.6l6.3-28L9.5 37.2l27.2-4.3L49.3 9.1l12.6 23.8 27.2 4.3L68.2 56.5 74.1 84.6zM17.8 39.7l16.8 15.5 -5 22.3 19.7-10.1 19.4 10.1 -4.7-22.3 16.8-15.5 -21.4-3.4L49.3 17.2 39.1 36.3 17.8 39.7z"/></svg>
+                        {% elseif notification.type == 'rated' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 78.2 72.2" enable-background="new 0 0 78.2 72.2" xml:space="preserve"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.3 72.2l6.2-26.9L0 26.8l26.9-4.2L39.1 0l12.2 22.6 26.9 4.2L57.7 45.4l5.8 26.9L39.1 59.8 14.3 72.2z"/></svg>
+                        {% elseif notification.type == 'rated_with_feedback' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 78.2 72.2" enable-background="new 0 0 78.2 72.2" xml:space="preserve"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.3 72.2l6.2-26.9L0 26.8l26.9-4.2L39.1 0l12.2 22.6 26.9 4.2L57.7 45.4l5.8 26.9L39.1 59.8 14.3 72.2z"/></svg>
+                        {% elseif notification.type == 'message' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 60 56" enable-background="new 0 0 60 56" xml:space="preserve"><path d="M3.2 56c-0.3 0-0.5-0.1-0.7-0.3 -0.3-0.3-0.4-0.8-0.2-1.1l6.2-12.3C3 37.6 0 31.6 0 25.1 0 11.2 13.5 0 30 0s30 11.2 30 25.1c0 13.6-13.5 24.7-30 24.7 -3.5 0-6.9-0.5-10.1-1.4L3.6 55.9C3.5 56 3.3 56 3.2 56zM30 2C14.6 2 2 12.4 2 25.1c0 6.1 3 11.8 8.3 16.1 0.4 0.3 0.5 0.8 0.3 1.2L5.4 52.9l14.1-6.5c0.2-0.1 0.5-0.1 0.7 0 3.2 1 6.5 1.4 9.9 1.4 15.4 0 28-10.2 28-22.7C58 12.4 45.4 2 30 2z"/><path d="M17.4 26.4c-1.2 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3S18.6 26.4 17.4 26.4zM17.4 23.9c-0.1 0-0.3 0.1-0.3 0.3 0 0.3 0.5 0.3 0.5 0C17.7 24 17.5 23.9 17.4 23.9z"/><path d="M42.6 26.4c-1.2 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3S43.9 26.4 42.6 26.4zM42.6 23.9c-0.1 0-0.3 0.1-0.3 0.3 0 0.3 0.5 0.3 0.5 0C42.9 24 42.8 23.9 42.6 23.9z"/><path d="M30 26.4c-1.2 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3c1.2 0 2.3 1 2.3 2.3S31.2 26.4 30 26.4zM30 23.9c-0.1 0-0.3 0.1-0.3 0.3 0 0.3 0.5 0.3 0.5 0C30.3 24 30.1 23.9 30 23.9z"/></svg>
+                        {% elseif notification.type == 'added_by_favorite' %}
+                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 57.7 57.6" enable-background="new 0 0 57.7 57.6" xml:space="preserve"><path d="M29.3 57.5c-0.6 0-1-0.4-1-1V1c0-0.6 0.4-1 1-1 0.6 0 1 0.4 1 1v55.5C30.3 57 29.8 57.5 29.3 57.5z"/><path d="M56.7 29.2H1.3c-0.6 0-1-0.4-1-1s0.4-1 1-1h55.5c0.6 0 1 0.4 1 1S57.3 29.2 56.7 29.2z"/></svg>
+                        {% endif %}
+					</span>
+                    <h2>{{ notification.notification|raw }}</h2>
+                    <h3 class="timeago" title="{{ notification.createdAt|date }}">{{ notification.createdAt|date }}</h3>
+                    {% if notification.createUser %}
+                         <a href="{{ url('user_detail', {'userSlug': notification.createUser.slug}) }}"><img src="{{ getProfileImage(notification.createUser, 'mini') }}"></a>
+                    {% else %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block childJavascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax("{{ path('profile_set_notifications_to_viewed') }}");
+        });
+    </script>
+{% endblock %}
+

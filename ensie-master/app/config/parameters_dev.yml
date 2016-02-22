@@ -1,0 +1,32 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: ensie_ensie
+    database_user: ensie
+    database_password: Ik3Ww8EG
+    mailer_transport: smtp
+    mailer_host: smtp.mandrillapp.com
+    mailer_user: badjak1+mandrill@gmail.com
+    mailer_password: TrCimbmCxLM4ir6Ai7qonA
+    mailer_port: 587
+    mailer_encryption: ssl
+    locale: nl
+    interfacelocal:
+        - en
+        - nl
+    writablelocale:
+        - en
+        - nl
+    secret: ensie2014
+    linkedin_app_id: 77mtuslwku45iv
+    linkedin_app_secret: g7HQcqUSgTZ0G01v
+    user.role_enise_user: ROLE_ENSIE_USER
+    mail_from_address: updates@ensie.nl
+    mail_to_info_addresses:
+        - info@ensie.nl
+    mail_to_admin_address:
+        - bart@ensie.nl
+        - afra@ensie.nl
+        - paulensie@gmail.com

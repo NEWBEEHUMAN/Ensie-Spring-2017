@@ -1,0 +1,51 @@
+services:
+    sonata.admin.ensie:
+        class: Ensie\EnsieBundle\Admin\EnsieAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Ensies" }
+        arguments:
+            - ~
+            - Ensie\EnsieBundle\Entity\Ensie
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]
+    sonata.admin.definition:
+        class: Ensie\EnsieBundle\Admin\DefinitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Definitions" }
+        arguments:
+            - ~
+            - Ensie\EnsieBundle\Entity\Definition
+            - EnsieEnsieBundle:AdminDefinition
+        calls:
+            - [ setTranslationDomain, [admin]]
+    sonata.admin.definition_category:
+        class: Ensie\EnsieBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Categories", label: "Categories" }
+        arguments:
+            - ~
+            - Ensie\EnsieBundle\Entity\Category
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]
+    sonata.admin.definition_subcategory:
+        class: Ensie\EnsieBundle\Admin\SubcategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Categories", label: "Subcategories" }
+        arguments:
+            - ~
+            - Ensie\EnsieBundle\Entity\Subcategory
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]
+    sonata.admin.popular_definition:
+        class: Ensie\EnsieBundle\Admin\PopularDefinitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Definitie", label: "Populaire definitions" }
+        arguments:
+            - ~
+            - Ensie\EnsieBundle\Entity\PopularDefinition
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]

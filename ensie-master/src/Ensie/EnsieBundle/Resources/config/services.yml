@@ -1,0 +1,122 @@
+services:
+    ensie.ensie_definition_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Definition
+    ensie.ensie_category_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Category
+    ensie.ensie_subcategory_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Subcategory
+    ensie.ensie_ensie_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Ensie
+    ensie.ensie_keyword_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Keyword
+    ensie.ensie_popular_definition_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\PopularDefinition
+    ensie.ensie_view_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\View
+    ensie.ensie_rating_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Rating
+        calls:
+            - [setEventDispatcher, ["@event_dispatcher"]]
+    ensie.ensie_spam_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\EnsieBundle\Entity\Spam
+        calls:
+            - [setEventDispatcher, ["@event_dispatcher"]]
+
+    #service
+    ensie.auto_complete_builder:
+        class: Ensie\EnsieBundle\Service\ArrayFormatter\AutoCompleteBuilder
+        arguments:
+          - @router
+
+    ensie.ensie_definition_service:
+        class: Ensie\EnsieBundle\Service\DefinitionService
+        arguments:
+            - @ensie.ensie_view_repository
+            - @ensie.ensie_definition_repository
+            - @doctrine.orm.entity_manager
+
+    #listeners
+    ensie_locale.locale_listener:
+        class: Ensie\EnsieBundle\Event\EventListeners\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie_definition.view_listener:
+        class: Ensie\EnsieBundle\Event\EventListeners\ViewDefinitionListener
+        arguments:
+            - @ensie.ensie_view_repository
+            - @ensie.ensie_definition_service
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ensie_definition.definition_listener:
+        class: Ensie\EnsieBundle\Event\EventListeners\DefinitionListener
+        arguments:
+            - @event_dispatcher
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    #twig
+    ensie_definition.twig_definition_path:
+        class: Ensie\EnsieBundle\Service\Twig\DefinitionUrl
+        arguments:
+            - @router
+        tags:
+            - { name: twig.extension }
+
+    #validators
+    ensie.validator_one_ensie_per_user_language:
+        class: Ensie\EnsieBundle\Validator\Constraint\UniqueEnsieValidator
+        arguments:
+            - @ensie.ensie_ensie_repository
+            - @ensie.ensie_language_service
+            - @security.context
+        tags:
+            - { name: validator.constraint_validator, alias: ensie.validator_one_ensie_per_user_language }
+
+    ensie.validator_one_definition_per_user_language:
+        class: Ensie\EnsieBundle\Validator\Constraint\UniqueDefinitionValidator
+        arguments:
+            - @ensie.ensie_definition_repository
+            - @ensie.ensie_language_service
+            - @security.context
+        tags:
+            - { name: validator.constraint_validator, alias: ensie.validator_one_definition_per_user_language }

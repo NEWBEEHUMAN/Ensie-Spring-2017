@@ -1,0 +1,21 @@
+{% extends "base_email.nl.html.twig" %}
+
+{% block content %}
+    <p>
+    Definition marked as spam<br>
+
+    <strong><a href="{{ url('definition_definition', {'userSlug': definition.ensieUser.slug, 'definitionSlug': definition.slug}) }}">{{ definition.word }}</a></strong><br>
+    <strong>definition:</strong><br>
+    {{ definition.definition }}<br><br>
+    <strong>description:</strong><br>
+    {{ definition.description }}<br><br>
+
+    <strong>Gerapporteerd door</strong><br>
+    <a href="{{ url('user_detail', {'userSlug': ensieUser.slug}) }}">{{ ensieUser.formattedName }}</a><br>
+    <strong>description:</strong><br>
+    {{ spam.description }}
+</p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

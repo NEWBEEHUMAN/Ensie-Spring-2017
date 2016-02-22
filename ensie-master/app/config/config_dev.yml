@@ -1,0 +1,46 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type:   stream
+            path:   "%kernel.logs_dir%/%kernel.environment%.log"
+            level:  debug
+            channels: [!flow]
+        console:
+            type:   console
+            bubble: false
+        flow:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.flow.log"
+            level: info
+            channels: [flow]
+    channels: [flow]
+
+assetic:
+    use_controller: true
+
+swiftmailer:
+    delivery_address: marijn@noxit.nl
+
+hip_mandrill:
+    api_key: 4Jq1-diuZHZpjWUVEc3p9g
+    disable_delivery: false # useful for dev/test environment. Default value is 'false'
+
+ensie_mandrill_mailer:
+    delivery_address: badjak1@gmail.com
+
+services:
+    cache:
+        class: Doctrine\Common\Cache\XcacheCache

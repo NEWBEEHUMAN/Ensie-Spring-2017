@@ -1,0 +1,21 @@
+{% extends "base_email.nl.html.twig" %}
+
+{% block content %}
+    <h2>Hi Admin</h2>
+    <p>
+        Validate definition:
+        <strong>{{ definition.word }}</strong>
+        <br><br>
+        <strong>Definition</strong><br>
+        {{ definition.definition }}
+        <br><br>
+        <strong>Description</strong><br>
+        {{ definition.description }}
+    </p>
+    <p>Good luck!</p>
+    <br>
+    <p><a href="{{ url('admin_validate_definition', {'id': definition.id}) }}">Validate</a></p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

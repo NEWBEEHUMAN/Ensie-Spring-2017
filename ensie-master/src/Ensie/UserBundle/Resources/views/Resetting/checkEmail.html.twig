@@ -1,0 +1,5 @@
+{% block fos_user_content %}
+<p>{{ simpleText('overlay.resetting.check_email.part_one') }}{{ simpleTextSonataAdminLink('overlay.resetting.check_email.part_one') | raw }}</p>
+<p><strong>{{ email }}</strong></p>
+<p>{{ simpleText('overlay.resetting.check_email.part_two') }}{{ simpleTextSonataAdminLink('overlay.resetting.check_email.part_two') | raw }}</p>
+{% endblock %}

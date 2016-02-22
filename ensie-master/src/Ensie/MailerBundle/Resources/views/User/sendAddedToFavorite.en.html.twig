@@ -1,0 +1,23 @@
+{% extends "base_email.en.html.twig" %}
+
+{% block content %}
+<h2>Hi {{ ensieUserFriend.formattedName }}</h2>
+<p>
+    Congratulations! Another user of Ensie marked you as a favorite. That means you are
+    doing a great job and people want to see more work from your hand.
+    Start immediately with writing a new definition to expand your Ensie by clicking
+    <a href="{{ url('profile_definition_write', { 'locale': 'en' }) }}">here</a>. </p>
+<p>
+    Good luck!<br/>
+    Tom</p>
+<p><a href="https://www.ensie.com">Go to Ensie</a></p>
+{% endblock %}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+services:
+    sonata.admin.subscription_subscription:
+        class: Ensie\SubscriptionBundle\Admin\SubscriptionAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Subscription"
+              label: "Subscriptions"
+        arguments:
+            - ~
+            - Ensie\SubscriptionBundle\Entity\Subscription
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]
+    sonata.admin.subscription_subscription_log:
+        class: Ensie\SubscriptionBundle\Admin\SubscriptionLogAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Subscription"
+              label: "Log"
+        arguments:
+            - ~
+            - Ensie\SubscriptionBundle\Entity\SubscriptionLog
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]

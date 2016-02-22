@@ -1,0 +1,5 @@
+#services:
+#    ensie.subscription.subscription_service:
+#        class: Ensie\StatsBundle\Service\BasicStatsService
+#        arguments:
+#            - "@doctrine.orm.entity_manager"

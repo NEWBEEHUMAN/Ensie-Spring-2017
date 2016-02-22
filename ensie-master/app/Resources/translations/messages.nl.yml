@@ -1,0 +1,10 @@
+#dutch translations
+mail.admin.definition_validate: 'Ensie: valideer een definitie'
+mail.admin.definition_marked_as_spam: 'Ensie: iemand heeft een bericht als spam gemarkeerd'
+mail.user.definition_accepted: 'Ensie: je artikel is geaccepteerd'
+mail.user.definition_rejected: 'Ensie: je artikel is afgekeurd'
+mail.user.added_to_favo: 'Ensie: iemand heeft je toegevoegd als favoriet'
+mail.user.definition_created: 'Ensie: er is een nieuw artikel geplaatst'
+everyone: 'Iedereen'
+writers: 'Alleen schrijvers'
+none: 'Niemand'

@@ -1,0 +1,29 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_port: 587
+    mailer_encryption: ssl
+
+
+    locale:            en
+    interfacelocal:    ~
+    writablelocale:    ~
+    secret:            ThisTokenIsNotSoSecretChangeIt
+    linkedin_app_id:   ~
+    linkedin_app_secret: ~
+    user.role_enise_user: ROLE_ENSIE_USER
+    mail_from_address: marijn@noxit.nl
+    mail_to_admin_address: marijn@noxit.nl
+    mail_to_info_addresses:
+        - marijn@noxit.nl
+
+

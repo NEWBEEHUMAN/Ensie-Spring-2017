@@ -1,0 +1,61 @@
+{% extends "EnsieUserBundle:Profile:base_profile.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {{ parent() }}
+
+    <section class="admin">
+        <div class="wrapper">
+            <header>
+                <h1>{{ simpleText('profile.definition_edit_title') }}{{ simpleTextSonataAdminLink('profile.definition_edit_title')|raw }}</h1>
+            </header>
+            <div class="content">
+                {% embed 'EnsieUserBundle:Profile:definitionForm.html.twig' %}
+                    {% block submitButton %}
+                        <input type="submit" value="{{ simpleText('profile.definition_ensie_action_edit') }}">{{ simpleTextSonataAdminLink('profile.definition_ensie_action_edit')|raw }}
+                    {% endblock %}
+                {% endembed %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block childJavascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@EnsieAssetBundle/Resources/public/js/tag-it.js'
+    '@EnsieAssetBundle/Resources/public/js/wordcounter.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+
+        $('.content').find('form:first').submit(function (e) {
+            if($('#definition_extraLinkUrl').val().length > 1){
+                var url = $('#definition_extraLinkUrl').val();
+                if (!/^https?:\/\//i.test(url)) {
+                    $('#definition_extraLinkUrl').val('http://' + url);
+                }
+            }
+        });
+
+        $("#definition_definition").textareaCounter({ limit: 50 });
+        $("#definition_description").textareaCounter({ limit: 250 });
+
+        $(document).ready(function() {
+            $("#i4").tagit(
+                    {fieldName: "definition[keywords][][word]"}
+            );
+            $('.selectbox .options .item').click(selectEnsie);
+
+        });
+
+        var selectEnsie = function(){
+            $("[name='{{ form.ensieText.vars.full_name }}']").val($(this).find('input').val());
+        }
+
+    </script>
+{% endblock %}
+
+

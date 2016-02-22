@@ -1,0 +1,13 @@
+{% extends "base_email.nl.html.twig" %}
+
+{% block content %}
+    <h2>Beste {{ ensieUser.formattedName }}</h2>
+    <p>
+        Een van je favorieten heeft een nieuw artikel: <a href="{{ definitionPath(definition) }}">{{ definition.word }}</a> geplaatst.
+    </p>
+    <p>
+        Good luck!<br/>
+        Tom
+    </p>
+    <p><a href="https://www.ensie.nl">Ga naar Ensie</a></p>
+{% endblock %}

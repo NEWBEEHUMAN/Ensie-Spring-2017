@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block metadata %}
+    {% if app.request.locale == 'nl' %}
+        {% set page = 'search' %}
+        <title>Betekenis en definitie van {{ list[0].word }} door experts geschreven</title>
+        <meta name="description" content="Wat betekent {{ list[0].word }}? Op Ensie vind je de betekenis van {{ list[0].word }}">
+        <meta name="keywords" content="wat betekent, definitie, betekenis, {{ list[0].word }}, wat is, expert, kennis, informatie" />
+    {% else %}
+        {% set page = 'search' %}
+        <title>Meaning and definition of {{ list[0].word }} written by experts</title>
+        <meta name="description" content="What means {{ list[0].word }}? Find the meaning of {{ list[0].word }} at Ensie">
+        <meta name="keywords" content="what means, definition, meaning, {{ list[0].word }}, what is, expert, knowledge, information" />
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section class="resultpage searchresults">
+        <div class="wrapper">
+            <header>
+                <h1>{{ simpleText('searchpage.title_%word%', translationPlaceHolders)|raw }}{{ simpleTextSonataAdminLink('searchpage.title_%word%')|raw }}</h1>
+            </header>
+            <div class="results">
+                {% for definition in list %}
+                <div class="result">
+                    <div class="content">
+                        <h2><a href="{{ definitionPath(definition) }}">{{ definition.word }}</a> <span>{{ simpleText('searchpage.definition_and_meaning')|raw }}{{ simpleTextSonataAdminLink('searchpage.definition_and_meaning')|raw }}</span></h2>
+                        <p>{{ definition.definition | truncate(80, false, '&hellip;') | raw }} </p>
+                    </div>
+
+                    <aside class="profile">
+                        <a href="{{ ensieUserPath(definition.ensieUser) }}" class="profilepicture">
+                            <img src="{{ getProfileImage(definition.ensieUser, 'medium') }}">
+                        </a>
+                        {% set ensieUser = definition.ensieUser %}
+                        {% if ensieUser.isCompany %}
+                            <h3><a href="{{ path('user_detail', {'userSlug': ensieUser.slug}) }}">{{ ensieUser.companyName }}</a></h3>
+                            <p>{% if ensieUser.headline is null or ensieUser.headline == '' %}{{ simpleText('user.empty_headline') }}{{ simpleTextSonataAdminLink('user.empty_headline') | raw }}{% else %}{{ ensieUser.headline }}{% endif %}</p>
+                        {% else %}
+                            <h3><a href="{{ path('user_detail', {'userSlug': ensieUser.slug}) }}">{{ ensieUser.formattedName }}</a></h3>
+                            <p>{% if ensieUser.headline is null or ensieUser.headline == '' %}{{ simpleText('user.empty_headline') }}{{ simpleTextSonataAdminLink('user.empty_headline') | raw }}{% else %}{{ ensieUser.headline }}{% endif %}</p>
+                        {% endif %}
+                    </aside>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

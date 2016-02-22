@@ -1,0 +1,56 @@
+Ensie\UserBundle\Entity\EnsieUser:
+    properties:
+        firstName:
+            - NotBlank: {groups: [Registration]}
+            - Length: {min: 3, groups: [Registration]}
+        formattedName:
+            - NotBlank: {groups: [Registration]}
+            - Length: {min: 3, groups: [Registration]}
+        email:
+            - Email: {groups: [Registration]}
+            - Length: {min: 3, groups: [Registration]}
+        companyName:
+            - NotBlank: {groups: [Registration]}
+            - Length: {min: 3, groups: [Registration]}
+        termsAccepted:
+            - NotBlank:
+                message: "ensie.user.form.field.terms_accepted.validation.not_empty"
+                groups: [Registration]
+        websiteUrl:
+            - NotBlank:
+                groups: [Company]
+            - Url:
+                message: "ensie.user.form.field.webUrl.validation.no_correct_website_url"
+                groups: [Company]
+        headline:
+            - Length:
+                max: 50
+                maxMessage: "ensie.user.form.field.headline.validation.max_length_exceeded"
+                groups: [Company]
+        telnumber:
+            - NotBlank:
+                groups: [Company]
+        bio:
+            - Length:
+                max: 140
+                maxMessage: "ensie.user.form.field.bio.validation.max_length_exceeded"
+                #groups: [Company]
+        linkedInUrl:
+            - Ensie\UserBundle\Validator\Constraints\EmptyOrRegex:
+                pattern: "/(.+)linkedin.com(.+)/"
+                message: "ensie.user.form.field.linkedInUrl.validation.no_linkin_in_url"
+        googlePlusUrl:
+            - Ensie\UserBundle\Validator\Constraints\EmptyOrRegex:
+                pattern: "/(.+)plus.google.com(.+)/"
+                message: "ensie.user.form.field.googlePlusUrl.validation.no_google_plus_in_url"
+
+Ensie\UserBundle\Model\Contact:
+    properties:
+        email:
+            - NotBlank:
+                message: "common.notBlank"
+            - Email:
+                message: "ensie.user.form.field.contact.validation.email"
+        message:
+            - NotBlank:
+                message: "common.notBlank"

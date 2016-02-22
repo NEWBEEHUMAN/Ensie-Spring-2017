@@ -1,0 +1,32 @@
+services:
+    simpletext.simpletext_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Ensie\SimpleTextBundle\Entity\SimpleText
+
+    simpletext.twig.simpletext_extension:
+        class: Ensie\SimpleTextBundle\Service\Twig\SimpleTextExtension
+        arguments:
+          - @session
+          - @cache
+          - @simpletext.simpletext_repository
+          - @router
+          - @security.context
+        tags:
+            - { name: twig.extension }
+
+    #listeners
+    simpletext.post_persist_listener:
+        class: Ensie\SimpleTextBundle\Event\EventListeners\PostPersistListener
+        calls:
+             - [ setCache, [@cache] ]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist, method: postPersist}
+    simpletext.post_update_listener:
+            class: Ensie\SimpleTextBundle\Event\EventListeners\PostUpdateListener
+            calls:
+                 - [ setCache, [@cache] ]
+            tags:
+                - { name: doctrine.event_listener, event: postUpdate, method: postUpdate}

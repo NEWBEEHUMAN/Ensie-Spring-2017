@@ -1,0 +1,32 @@
+{% extends "EnsieUserBundle:Profile:base_profile.html.twig" %}
+
+{% block content %}
+    {{ parent() }}
+    <section class="admin">
+        <div class="wrapper">
+            <header>
+                <h1>Validate definition</h1>
+            </header>
+            <div>
+                <h3>Gebruiker</h3>
+                Auteur: {{ definition.ensieUser.formattedName }} {% if definition.ensieUser.isCompany %}<strong>BEDRIJF: {{ definition.ensieUser.companyName }}</strong>{% endif %}<br>
+                LinkedIn: <a href="{{ definition.ensieUser.linkedInUrl }}" class="linkedin" target="_blank">linkedIn</a><br>
+                Email: <a href="mailto:{{ definition.ensieUser.email }}" class="linkedin" target="_blank">{{ definition.ensieUser.email }}</a><br>
+                <br>
+                <h3>{{ definition.word }}</h3>
+                <strong>Definition</strong><br>
+                {{ definition.definition|nl2br }}<br><br>
+
+                <strong>Description</strong><br>
+                {{ definition.description|nl2br }}<br><br>
+            </div>
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <ul class="form large">
+                {{ form(form) }}
+            </ul>
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
+

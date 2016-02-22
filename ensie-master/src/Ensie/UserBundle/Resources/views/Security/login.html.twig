@@ -1,0 +1,55 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <ul class="form">
+            {% if error %}
+                <li>
+                    <ul class="error">
+                        <li>
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            <li class="login-username-hidden" style="display: none;">
+                <label for="username">{{ simpleText('overlay.login_form_username') }}{{ simpleTextSonataAdminLink('overlay.login_form_username') | raw }}</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+            </li>
+            <li class="login-username-hidden" style="display: none;">
+                <label for="password">{{ simpleText('overlay.login_form_password') }}{{ simpleTextSonataAdminLink('overlay.login_form_password') | raw }}</label>
+                <input type="password" id="password" name="_password" required="required"/>
+            </li>
+            <li class="login-username-hidden" style="display: none;">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                <label for="remember_me">{{ simpleText('overlay.login_form_remember_me') }}{{ simpleTextSonataAdminLink('overlay.login_form_remember_me') | raw }}</label>
+            </li>
+            {% spaceless %}
+            <li class="buttonwrapper" style="overflow: hidden;">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                <input type="button" value="{{ simpleText('overlay.login_form_button_loggin_with_linkedin') }}"
+                       onclick="location.href='{{ hwi_oauth_login_url('linkedin') }}';">
+                <input type="button" class="login-username-show" style="margin: 0" value="{{ simpleText('overlay.login_form_button_loggin') }}">
+                <input type="submit" class="login-username-hidden" style="margin: 0; display: none;" value="{{ simpleText('overlay.login_form_button_loggin') }}"
+                       onclick="location.href='{{ hwi_oauth_login_url('linkedin') }}';" id="_submit" name="_submit">
+            </li>
+            {% endspaceless %}
+            <li class="center">
+                {{ simpleTextSonataAdminLink('overlay.login_form_button_loggin') | raw }}
+                {{ simpleTextSonataAdminLink('overlay.login_form_button_loggin_with_linkedin') | raw }}
+                <a href="#"
+                   data-action="register">{{ simpleText('overlay.login_no_account') }}</a>{{ simpleTextSonataAdminLink('overlay.login_no_account') | raw }}
+                <br>
+                <a data-action="resetting"
+                   href="#">{{ simpleText('overlay.login_form_resetting') }}</a>{{ simpleTextSonataAdminLink('overlay.login_form_resetting') | raw }}
+            </li>
+        </ul>
+    </form>
+    {% if error %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.login-username-show').click();
+        });
+    </script>
+    {% endif %}
+{% endblock fos_user_content %}

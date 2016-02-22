@@ -1,0 +1,11 @@
+services:
+    sonata.admin.popular_user:
+        class: Ensie\UserBundle\Admin\PopularUserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Gebruiker", label: "Populaire gebruikers" }
+        arguments:
+            - ~
+            - Ensie\UserBundle\Entity\PopularUser
+            - ~
+        calls:
+            - [ setTranslationDomain, [admin]]

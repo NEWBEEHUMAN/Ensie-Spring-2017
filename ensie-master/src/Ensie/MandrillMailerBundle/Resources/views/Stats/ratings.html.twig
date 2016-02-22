@@ -1,0 +1,7 @@
+{% for definition in definitions %}
+    {% if locale == 'nl' %}
+            - Je artikel <a href="{{ definitionPath(definition[0]) }}">{{ definition[0].word }}</a> scoorde gemiddeld een {{ definition.average|round(1) }}<br>
+    {% else %}
+            - Your article <a href="{{ definitionPath(definition[0]) }}">{{ definition[0].word }}</a> scored an {{ definition.average|round(1) }} on average<br>
+    {% endif %}
+{% endfor %}

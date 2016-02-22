@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <article class="empty">
+        <div class="wrapper">
+            <section class="content">
+                <header>
+                    <h1>
+                        {{ simpleText('not_found.title') }}{{ simpleTextSonataAdminLink('not_found.title') | raw }}
+                    </h1>
+                </header>
+                <div class="text">
+                    {{ simpleText('not_found.content')|raw }}{{ simpleTextSonataAdminLink('not_found.content', true) | raw }}
+                </div>
+            </section>
+        </div>
+    </article>
+{% endblock %}
